@@ -10,4 +10,4 @@
 - first
 - second
   * 1
-  *
+  * 2
