@@ -11,18 +11,18 @@ done = False
 count=0
 
 # picture load
-background = pygame.image.load('GAME.jpg').convert()
+background = pygame.image.load('images/GAME.jpg').convert()
 
-PFORWARD = pygame.image.load('PFORWARD.png')
+PFORWARD = pygame.image.load('images/PFORWARD.png')
 PFORWARD = pygame.transform.scale2x(PFORWARD)
 
-PDOWNWARD = pygame.image.load('PDOWNWARD.png')
+PDOWNWARD = pygame.image.load('images/PDOWNWARD.png')
 PDOWNWARD = pygame.transform.scale2x(PDOWNWARD)
 
-PLEFT = pygame.image.load('PLEFT.png')
+PLEFT = pygame.image.load('images/PLEFT.png')
 PLEFT = pygame.transform.scale2x(PLEFT)
 
-PRIGHT =pygame.image.load('PRIGHT.png')
+PRIGHT =pygame.image.load('images/PRIGHT.png')
 PRIGHT = pygame.transform.scale2x(PRIGHT)
 
 x = 0
