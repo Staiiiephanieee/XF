@@ -9,7 +9,7 @@ import sys
 import pygame as pg
 import os, sys, platform
 from engine import tilerender
-from engine.sprites import Player
+from engine.sprites import Player, Person
 import random
 
 def load_all_gfx(directory, colorkey=(255, 0, 255), accept=('.png', 'jpg', 'bmp')):
@@ -180,6 +180,20 @@ if __name__ == '__main__':
             player.rect.x = posx
             player.rect.y = posy
 
+	#****************************************************************************
+    npc = Person.Person('player', 64, 128) # sprite
+    #******************************************************************************
+
+    # textbox
+    #*****************************************************************************
+    bground = GFX['dialoguebox']
+    bgroundrect = bground.get_rect(centerx=400)
+
+    bgroundimage = pg.Surface(bgroundrect.size)
+    bgroundimage.set_colorkey((0,0,0))
+    bgroundimage.blit(bground, (0, 0))
+	
+    #********************************************************************************
 
     while not done:
         events = pg.event.get()
@@ -214,65 +228,55 @@ if __name__ == '__main__':
                 player.rect.y -= player.y_vel
             player.begin_resting()
 
+
+
         if player.rect.x % 32 == 0 and player.rect.y % 32 == 0:
             if not player.state == 'resting':
                 pass
             player.begin_resting()
 
+        
+
+
         viewport.center = player.rect.center
         viewport.clamp_ip(level_rect)
 
-        script1 = GFX["script1"]
-        script2 = GFX["script2"]
-        script1pos = script1.get_rect()
-        script2pos = script2.get_rect()
-        script1pos.x = 235
-        script1pos.y = 32 * 9.5
-        script2pos.x = 32 * 7
-        script2pos.y = 32 * 15.6
+     
+        #**********************************************************************
+        npc_collided=False
+        if player.rect.colliderect(npc.rect):
+        	npc_collided = True
+        if npc_collided:
+            if player.x_vel != 0:
+                player.rect.x -= player.x_vel
+            else:
+                player.rect.y -= player.y_vel
+            player.begin_resting()
+        #***************************************************************************
 
-
-
-        # class Scripts(pg.sprite.Sprite):
-            # def __init__(self):
-            #     script1 = GFX["script1"]
-            #     script2 = GFX["script2"]
-            #     script1pos = script1.get_rect()
-            #     script2pos = script2.get_rect()
-            #     script1pos.x = 235
-            #     script1pos.y = 32 * 9.5
-            #     script2pos.x = 32 * 7
-            #     script2pos.y = 32 * 15.6
-            #     level_surface.blit(script1, script1pos)
-            #     level_surface.blit(script2, script2pos)
-            #     # script1pos.x = random.randrange(64, 32 * 8)
-            #     # script1pos.y = random.randrange(32 * 9, 32 * 10)
-            #     # script2pos.x = random.randrange(64, 32 * 11)
-            #     # script2pos.y = random.randrange(32 * 15, 32 * 16)
-            #
-
-
-
-        #message-box
-        box = GFX["box"]
-        boxpos = box.get_rect()
-        boxpos.x = viewport.x + (800-boxpos.width)
-        boxpos.y = viewport.y + (608-boxpos.height)
-
-
-        # text = FONT.render('test', 1, (255, 0, 0))
-        # textpos = text.get_rect()
-        # textpos.x = viewport.x+300
-        # textpos.y = viewport.y+200
+       
 
 
         level_surface.blit(map_image, viewport, viewport)
         #level_surface.blit(title_box, title_rect)
         level_surface.blit(player.image, player.rect)
-        # level_surface.blit(text, textpos)
-        level_surface.blit(box, boxpos)
-        level_surface.blit(script1, script1pos)
-        level_surface.blit(script2, script2pos)
+        level_surface.blit(npc.image, npc.rect)
+
+
+		#*******************************************************************************
+        if npc_collided:
+        	#text = FONT.render('test', 1, (255, 0, 0))
+        	#textpos = text.get_rect()
+        	#textpos.x = viewport.x+300
+        	#textpos.y = viewport.y+200
+        	dialogue_image = FONT.render('hi, Stephanie',
+                                          True,
+                                          (255,0,0))
+    		dialogue_rect = dialogue_image.get_rect(left=50, top=50)
+    		bgroundimage.blit(dialogue_image, dialogue_rect)
+    		bgroundrect.y = viewport.y+450
+        	level_surface.blit(bgroundimage, bgroundrect)
+ 		#********************************************************************************************
 
         screen.blit(level_surface, (0, 0), viewport)
         pg.display.update()
@@ -287,28 +291,28 @@ if __name__ == '__main__':
 ##            textpos = text.get_rect()
 ##            textpos.x = box.x + 32
 ##            textpos.y = box.y + 32
-        yes = GFX['yes']
-        no = GFX['no']
-        yespos = yes.get_rect()
-        nopos = no.get_rect()
-        yespos.x = boxpos.x +32
-        yespos.y = boxpos.y +55
-        nopos.x = yespos.x + 64
-        nopos.y = yespos.y
+        #yes = GFX['yes']
+        #no = GFX['no']
+        #yespos = yes.get_rect()
+        #nopos = no.get_rect()
+        #yespos.x = boxpos.x +32
+        #yespos.y = boxpos.y +55
+        #nopos.x = yespos.x + 64
+        #nopos.y = yespos.y
 
-        rate = 60
-        frame = 25
-        last_time = 0
-        if current_time > last_time + rate:
-            frame += 1
-            if frame > last_time:
-                level_surface.blit(yes, yespos)
-                level_surface.blit(no, nopos)
-                screen.blit(level_surface, (0, 0), viewport)
-                pg.display.update()
-                last_time = current_time
-            framerate = pg.time.Clock()
-            clock.tick(60)
+       # rate = 60
+       # frame = 25
+       # last_time = 0
+       # if current_time > last_time + rate:
+       #     frame += 1
+       #     if frame > last_time:
+                #level_surface.blit(yes, yespos)
+                #level_surface.blit(no, nopos)
+        #        screen.blit(level_surface, (0, 0), viewport)
+        #        pg.display.update()
+        #        last_time = current_time
+        #    framerate = pg.time.Clock()
+        #    clock.tick(60)
 
 
         if show_fps:
