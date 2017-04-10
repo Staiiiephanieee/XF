@@ -47,6 +47,8 @@ class GameRenderData:
         #     script = Scripts("script%s"%(i+1), 64*i+635, 32*9.5+32*5*i)
         #     self.scripts_list.add(script)
 
+        self.collide_scripts = False # scripts collide
+
         # map
         self.tmx_map = self.TMX['background2']
         self.renderer = Renderer(self.tmx_map)
@@ -55,16 +57,11 @@ class GameRenderData:
         self.viewport = SCREEN.get_rect(bottom=self.map_rect.bottom)
         self.level_surface = pg.Surface(self.map_rect.size)
         self.level_rect = self.level_surface.get_rect()
-        self.viewport.clamp_ip(self.level_rect)
 
         # box
         self.box = self.GFX["box"]
         self.boxpos = self.box.get_rect()
-        # print(self.viewport.x)
-        # self.boxpos.x = self.viewport.x
-        # self.boxpos.y = self.viewport.y
-        self.boxpos.x = self.viewport.x + (800-self.boxpos.width)
-        self.boxpos.y = self.viewport.y + (608-self.boxpos.height)
+        print(self.viewport.x, self.viewport.y)
 
         #blocks
         self.blockers = []
@@ -227,26 +224,31 @@ def load_player_map(render_data):
     sprites_collide_scripts = pg.sprite.spritecollide(render_data.player, render_data.scripts_list, True)
     if len(sprites_collide_scripts) >0:
         print 'collide scripts'
-        text = render_data.FONT.render('test', 1, (255, 0, 0))
-        textpos = text.get_rect()
-        # textpos.x = render_data.boxpos.x + 32
-        # textpos.y = render_data.boxpos.y + 32
-        textpos.x = 32
-        textpos.y = 32
-        render_data.level_surface.blit(text, textpos)
-
+        render_data.collide_scripts = True
 
     render_data.viewport.center = render_data.player.rect.center
     # render_data.viewport.center = (320, 330)
     render_data.viewport.clamp_ip(render_data.level_rect)
+
     render_data.level_surface.blit(render_data.map_image, render_data.viewport, render_data.viewport)
     # render box
-    render_data.level_surface.blit(render_data.box, render_data.boxpos, render_data.viewport)
+    # print (render_data.viewport.x, render_data.viewport.y)
+    render_data.boxpos.x = render_data.viewport.x + (1200 - render_data.boxpos.width)
+    render_data.boxpos.y = render_data.viewport.y + (600 - render_data.boxpos.height)
+    render_data.level_surface.blit(render_data.box, render_data.boxpos)
     # render scripts
     render_data.level_surface.blit(render_data.script1.image, render_data.script1.rect)
     render_data.level_surface.blit(render_data.script2.image, render_data.script2.rect)
     # render player
     render_data.level_surface.blit(render_data.player.image, render_data.player.rect)
+
+    if render_data.collide_scripts == True:
+        text = render_data.FONT.render('test', 1, (255, 0, 0))
+        textpos = text.get_rect()
+        textpos.x = render_data.boxpos.x + 32
+        textpos.y = render_data.boxpos.y + 32
+        render_data.level_surface.blit(text, textpos)
+        # render_data.collide_scripts = False
 
     render_data.screen.blit(render_data.level_surface, (0, 0), render_data.viewport)
     return ("LOADPLAYERMAP", render_data)
@@ -263,7 +265,7 @@ if __name__ == "__main__":
 
     pg.event.set_allowed([pg.KEYDOWN, pg.KEYUP, pg.QUIT])  # set we should focus event
 
-    SCREEN = pg.display.set_mode((800, 608)) # set screen size
+    SCREEN = pg.display.set_mode((1000, 600)) # set screen size
     SCREEN_RECT = SCREEN.get_rect()
 
     # new a GameRenderData
