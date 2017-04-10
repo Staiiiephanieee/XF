@@ -36,6 +36,17 @@ class GameRenderData:
         self.bgroundimage.set_colorkey((0, 0, 0))
         self.bgroundimage.blit(self.bground, (0, 0))
 
+        # scripts
+        self.scripts_list = pg.sprite.Group()
+        self.script1 = Scripts('script1', 235, 32 * 9.5)
+        self.script2 = Scripts('script2', 32 * 7, 32 * 15.6)
+
+        self.scripts_list.add(self.script1)
+        self.scripts_list.add(self.script2)
+        # for i in range(2):
+        #     script = Scripts("script%s"%(i+1), 64*i+635, 32*9.5+32*5*i)
+        #     self.scripts_list.add(script)
+
         # map
         self.tmx_map = self.TMX['background2']
         self.renderer = Renderer(self.tmx_map)
@@ -44,6 +55,16 @@ class GameRenderData:
         self.viewport = SCREEN.get_rect(bottom=self.map_rect.bottom)
         self.level_surface = pg.Surface(self.map_rect.size)
         self.level_rect = self.level_surface.get_rect()
+        self.viewport.clamp_ip(self.level_rect)
+
+        # box
+        self.box = self.GFX["box"]
+        self.boxpos = self.box.get_rect()
+        # print(self.viewport.x)
+        # self.boxpos.x = self.viewport.x
+        # self.boxpos.y = self.viewport.y
+        self.boxpos.x = self.viewport.x + (800-self.boxpos.width)
+        self.boxpos.y = self.viewport.y + (608-self.boxpos.height)
 
         #blocks
         self.blockers = []
@@ -53,12 +74,6 @@ class GameRenderData:
                 top = object.y
                 blocker = pg.Rect(left, top, 32, 32)
                 self.blockers.append(blocker)
-
-        #scripts
-        scripts_list = pg.sprite.Group()
-        for i in range(2):
-            script = Scripts("script%s"%(i+1), 64*i+635, 32*9.5+32*5*i, GameRenderData)
-            scripts_list.add(script)
 
         #player
         self.player = None
@@ -106,14 +121,16 @@ class GameRenderData:
 #         # pg.time.delay(2000)
 
 class Scripts(pg.sprite.Sprite):
-    def __init__(self, imagepath, x, y, render_data):
+    def __init__(self, imagepath, x, y):
         pg.sprite.Sprite.__init__(self)
-        self.image = render_data.GFX[imagepath]
+        self.image = load_all_gfx(os.path.join('resources', 'graphics'))[imagepath]
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-    def update(self):
-        render_data.level_surface.blit(self.image, self.rect)
+    # def update(self):
+    #     print ("blit")
+    #     pg.Surface(Renderer(load_all_tmx(os.path.join('resources', 'tmx'))["background2"]).make_map().get_rect().size).blit(self.image, self.rect)
+
 
 class AnimateText:
     def __init__(self, texts):
@@ -125,7 +142,7 @@ class AnimateText:
         # print (self.index)
         time = pg.time.get_ticks()
         if (self.index < len(self.texts)):
-            if (time - self.current_time) > 1500:
+            if (time - self.current_time) > 1000:
                 if self.texts[self.index]["type"]=="button":
                     self.text = render_data.FONT.render(self.texts[self.index]["text"], 1, (225, 0, 0))
                     self.textpos = self.text.get_rect()
@@ -171,13 +188,6 @@ def start_game(render_data):
         elif event.type == pg.KEYUP:
             keys = pg.key.get_pressed()
 
-    # first-meet message
-    # text1 = "Hey dude, I need your help. Really, you need to listen to me."
-    # TEXT(text1, 32*2, 32*2)
-    #
-    # text2 = "I\'ve called the police but they didn’t believe me."
-    # TEXT(text2, 32*2, 32*3)
-
     render_data.atexts.update()
     render_data.screen.blit(render_data.level_surface, (0, 0))
 
@@ -196,12 +206,12 @@ def load_player_map(render_data):
     state_function = render_data.player.state_dict[render_data.player.state]
     state_function()
     render_data.player.rect.move_ip(render_data.player.x_vel, render_data.player.y_vel)
-    player_collided = False
+    player_collided_blocker = False
 
     for blocker in render_data.blockers:
         if render_data.player.rect.colliderect(blocker):
-            player_collided = True
-    if player_collided:
+            player_collided_blocker = True
+    if player_collided_blocker:
         if render_data.player.x_vel != 0:
             render_data.player.rect.x -= render_data.player.x_vel
         else:
@@ -213,14 +223,31 @@ def load_player_map(render_data):
             pass
             render_data.player.begin_resting()
 
+    # collide with the scripts
+    sprites_collide_scripts = pg.sprite.spritecollide(render_data.player, render_data.scripts_list, True)
+    if len(sprites_collide_scripts) >0:
+        print 'collide scripts'
+        text = render_data.FONT.render('test', 1, (255, 0, 0))
+        textpos = text.get_rect()
+        # textpos.x = render_data.boxpos.x + 32
+        # textpos.y = render_data.boxpos.y + 32
+        textpos.x = 32
+        textpos.y = 32
+        render_data.level_surface.blit(text, textpos)
 
 
     render_data.viewport.center = render_data.player.rect.center
     # render_data.viewport.center = (320, 330)
     render_data.viewport.clamp_ip(render_data.level_rect)
     render_data.level_surface.blit(render_data.map_image, render_data.viewport, render_data.viewport)
+    # render box
+    render_data.level_surface.blit(render_data.box, render_data.boxpos, render_data.viewport)
+    # render scripts
+    render_data.level_surface.blit(render_data.script1.image, render_data.script1.rect)
+    render_data.level_surface.blit(render_data.script2.image, render_data.script2.rect)
     # render player
     render_data.level_surface.blit(render_data.player.image, render_data.player.rect)
+
     render_data.screen.blit(render_data.level_surface, (0, 0), render_data.viewport)
     return ("LOADPLAYERMAP", render_data)
 
