@@ -57,7 +57,7 @@ class GameRenderData:
         #scripts
         scripts_list = pg.sprite.Group()
         for i in range(2):
-            script = Scripts("script%s"%(i+1), 64*i+635, 32*9.5+32*5*i)
+            script = Scripts("script%s"%(i+1), 64*i+635, 32*9.5+32*5*i, GameRenderData)
             scripts_list.add(script)
 
         #player
@@ -106,7 +106,7 @@ class GameRenderData:
 #         # pg.time.delay(2000)
 
 class Scripts(pg.sprite.Sprite):
-    def __init__(self, imagepath, x, y):
+    def __init__(self, imagepath, x, y, render_data):
         pg.sprite.Sprite.__init__(self)
         self.image = render_data.GFX[imagepath]
         self.rect = self.image.get_rect()
