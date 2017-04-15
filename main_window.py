@@ -89,23 +89,121 @@ class GameRenderData:
 
         #texts on the first page
         self.atexts = AnimateText([
-            { "text":"Hey dude, I need your help. Really, you need to listen to me.",
-              "x":32*2,
-              "y":32*2,
-              "type":"text"},
-            {"text":"I\'ve called the police but they didn\'t believe me.",
-             "x":32*3,
-             "y":32*3,
+            {"text": "Hey dude, I need your help. Really, you need to listen to me.",
+             "x": 32 * 1,
+             "y": 32 * 2,
              "type": "text"},
-            {"text": "Yes or no",
-             "x": 32 * 4,
+            {"text": "I\'ve called the police but they didn\'t believe me.",
+             "x": 32 * 1,
+             "y": 32 * 3,
+             "type": "text"},
+
+            {"text": "What happened?",
+             "x": 32 * 8,
              "y": 32 * 4,
+             "type": "text"},
+
+            {"text": "Okay ... I fainted,this is the last thing I\'ve remember.",
+             "x": 32 * 1,
+             "y": 32 * 5,
+             "type": "text"},
+
+            {"text": "But now,I\'m in a... I think this is an auditorium. And I\'m wearing a strange orange suit.",
+             "x": 32 * 1,
+             "y": 32 * 6,
+             "type": "text"},
+
+            {"text": "I was playing my phone somewhere I think and then...I just arrived here! Sounds crazy right?",
+             "x": 32 * 1,
+             "y": 32 * 7,
+             "type": "text"},
+
+            {"text": "It is indeed quite crazy  OR I believe you, dude.",
+             "x": 32 * 8,
+             "y": 32 * 8,
+             "type": "button_u"},
+
+            {"text": "Fine,anyway. I\'m trying to figure out how to get out of this place.Any suggestion?",
+             "x": 32 * 0,
+             "y": 32 * 9,
+             "type": "text"},
+
+            {"text": "Try the door! OR What\'s your staus?",
+             "x": 32 * 8,
+             "y": 32 * 10,
              "type": "button"},
-            {"text":"te......",
-             "x":32 * 3,
-             "y":32 * 5,
-             "type":"text"}
-                                   ])
+
+            {"text": "Let me try...hmm...it\'s locked.",
+             "x": 32 * 0,
+             "y": 32 * 11,
+             "type": "text"},
+
+            {"text": "I\'m fine! Luckily not being harmed. At least I have my kidney preserved.",
+             "x": 32 * 0,
+             "y": 32 * 12,
+             "type": "text"},
+
+            {"text": "My phone got...24% of the battery and that's the only thing that links us now.",
+             "x": 32 * 0,
+             "y": 32 * 13,
+             "type": "text"},
+
+            {"text": 'Hang on! There\'s a camera!I know you could hack into it,right?',
+             "x": 32 * 0,
+             "y": 32 * 14,
+             "type": "text"},
+
+            {"text": "I need the something to tell me where you are so I could get the IP address.",
+             "x": 32 * 8,
+             "y": 32 * 15,
+             # "jump": 2,
+             "type": "text"},
+
+            {"text": "No,I'll just call the police to let them pick you up.",
+             "x": 32 * 8,
+             "y": 32 * 16,
+             "type": "text"},
+
+            {"text": "No,no,no don't! I...no need for the cops,alright?",
+             "x": 32 * 0,
+             "y": 32 * 17,
+             "type": "text"},
+
+            {"text": "Are you messing with the drugs again?",
+             "x": 32 * 8,
+             "y": 32 * 18,
+             "type": "text"},
+
+            {"text": "No,I mean, a little, alright?",
+             "x": 32 * 0,
+             "y": 32 * 19,
+             "type": "text"},
+
+            {"text": "Seriously? Again? I mean, how long have you been out, 4 days ? ",
+             "x": 32 * 0,
+             "y": 32 * 20,
+             "type": "text"},
+
+            {"text": "Never again, okay? Go and find any address that could let me find where you are.",
+             "x": 32 * 0,
+             "y": 32 * 21,
+             "type": "text"},
+
+            {"text": "Okay then, there\'s definitely something with a name tag here.",
+             "x": 32 * 0,
+             "y": 32 * 22,
+             "type": "text"},
+
+            {"text": "Wait...",
+             "x": 32 * 0,
+             "y": 32 * 23,
+             "type": "text"},
+            # 此处有假进度条
+            {"text": "Okay...Here are some more.",
+             "x": 32 * 0,
+             "y": 32 * 24,
+             "type": "text"},
+                ])
 
 # class TEXT:
 #     def __init__(self, text, x, y):
