@@ -29,26 +29,70 @@ class GameRenderData:
         self.level_rect = None
         self.screen = pg.display.get_surface()
 
-        # # initialization dialog box
-        # self.bground = self.GFX['box']
-        # self.bgroundrect = self.bground.get_rect(centerx=400)
-        # self.bgroundimage = pg.Surface(self.bgroundrect.size)
-        # self.bgroundimage.set_colorkey((0, 0, 0))
-        # self.bgroundimage.blit(self.bground, (0, 0))
+        # initialization dialog box
+        self.bground = self.GFX['box']
+        self.bgroundrect = self.bground.get_rect(centerx=400)
+        self.bgroundimage = pg.Surface(self.bgroundrect.size)
+        self.bgroundimage.set_colorkey((0, 0, 0))
+        self.bgroundimage.blit(self.bground, (0, 0))
 
         # scripts
         self.scripts_list = pg.sprite.Group()
-        self.script1 = Scripts('script1', 32 * 7, 32 * 9.5)
-        self.script2 = Scripts('script2', 32 * 13, 32 * 15.6)
-        self.script3 = Scripts('script1', 32 * 2, 32 * 12.5)
-        self.script4 = Scripts('script2', 32 * 3.5, 32 * 6)
+        self.script1 = Scripts('script1', 32 * 7, 32 * 9.5, '''DRAMATIS PERSONAE:
+        GONZALO, King of Trinculo
+        ISABELLA, Queen of Trinculo; formerly the wife of Sforza, the murdered king, now married to Gonzalo
+        ANTONIO, a minor noble
+        FRANCISCO, Antonio’s servant
+        The DUKE OF SORTINO
+        ALINDA, daughter of the Duke
+        PETRUCCIO, a noble lord allied with Gonzalo
+        LODOVICO, a servant of Gonzalo
+        CORNARI, a priest
+        BEATRICE, a servant of the Queen
+        A COURTESAN
+        A PALACE GUARDSMAN
+        The AMBASSADOR OF MILAN
+        The AMBASSADOR OF FLORENCE
+        The AMBASSADOR OF ALAGADDA
+        SETTING:
+        The play is set in the Kingdom of Trinculo (probably a misspelling of Trinacria, another name for Sicily), in the capital city of Serko (another name for the city of Syracuse). As the play opens, Sforza, the king of Trinculo, has died, supposedly from natural causes while on retreat from the court. The nobility of Trinculo gathers in the capital for the coronation of the new king, Sforza’s younger brother, Gonzalo, who has also married Sforza’s queen, Isabella.
+
+        Despite the text’s references to contemporary Italian city-states, such as Florence and Milan, much of the play’s setting is obviously pure fantasy. There were never any kings of Sicily comparable to Gonzalo and Sforza, and the capital of the historical Kingdom of Sicily was Palermo, not Syracuse. (The author may have chosen to move the play’s events to Syracuse, due to that city’s historical association with tyranny). There is also no record of any country or place known by the name Alagadda, a mysterious but apparently powerful state that plays a significant role in the plot. It may be intended as a reference to one of the Muslim states or cities on the Mediterranean coast, such as Tunis or Algiers.
+        ''')
+        self.script2 = Scripts('script2', 32 * 13, 32 * 15.6, '''PLOT SUMMARY:
+        The plot of The Hanged King’s Tragedy bears a marked resemblance to many earlier plays of the same genre, including Shakespeare’s Hamlet and Titus Andronicus. In fact, past investigations into SCP-701 events have noted that The Hanged King’s Tragedy was often chosen for production as a less-violent alternative to the two plays mentioned. The two murders in the SCP-701 text can be construed as occurring off-stage, and the implication of cannibalism in Act III can be easily cut from the script.
+
+        ACT I:
+        The play opens during Gonzalo’s coronation. Gonzalo opens with a toast to the assembled nobility, then departs the stage. Drunk on the wine, Isabella confesses to some of the courtiers left on stage that Sforza did not die in his sleep as reported. Instead, while on retreat in the countryside, Sforza was fed a sleeping potion by Isabella, then murdered by Gonzalo and his supporters. As a final show of disrespect, the conspirators hanged the King like a common criminal from a tree. Isabella goes on to proclaim that Antonio, a minor noble visiting the King’s court for the first time, is actually her and Sforza’s son and the rightful heir to the throne. Isabella collapses and is taken offstage by her servants.
+
+        Francisco asks Antonio if he believes the Queen’s story. Antonio makes light of the situation, and they exit. Back in Antonio’s rented lodgings, Francisco attempts to barter with a Courtesan. Antonio enters the stage, clearly in shock. He reports that, while off-stage, he saw the Ghost of Sforza, who confirmed Antonio’s parentage and the Queen’s description of his death.
+        ''')
+        self.script3 = Scripts('script1', 32 * 2, 32 * 12.5, '''ACT II:
+        Gonzalo, having learned of Isabella’s confession, consults with his fellow conspirators. Lodovico confirms that at least three people witnessed the Queen’s breakdown – the Duke of Sortino, his daughter Alinda, and a priest named Cornari. Gonzalo immediately begins to plan the murder or capture of the three in order to cover up the truth. He orders Isabella to be locked up in a convent, with the story put out that the Queen is mad. Isabella, uncharacteristically, meekly accepts Gonzalo’s judgment. The usurper then exits, having an appointment with the ambassador from Alagadda.
+
+        Back in their lodgings in the city, Francisco brings Antonio news of the Queen’s imprisonment. Together, they begin to plan their revenge.
+
+        ACT III:
+        Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew. Gonzalo orders Alinda, who witnessed the murder, to be locked up in the convent.
+
+        Antonio fakes insanity in order to gain admittance to the convent. Warned of Antonio’s coming, Isabella and her loyal servant, Beatrice, prepare to murder him using a draught of poison. Antonio sees through their plan and forces Isabella to drink the poison, killing her. Meanwhile, Francisco gets lost within the convent and winds up freeing Alinda from her cell by accident.
+        ''')
+        self.script4 = Scripts('script2', 32 * 3.5, 32 * 6, '''ACT IV:
+        In the palace, Gonzalo reports to Lodovico that he has, in exchange for an unstated ‘tribute,’ obtained a powerful and tasteless poison from the ambassador of Alagadda. Gonzalo plans to poison the stew made from the Duke of Sortino’s corpse and feed it to the court, thus ensuring the suppression of the truth. Lodovico leaves the stage to carry out the usurper’s plan. Gonzalo then has a brief moment of conscience: in a soliloquy, he describes the regret he carries for his sins, but is nonetheless unable to deviate from the path he has set.
+
+        Meanwhile, Francisco introduces Alinda to Antonio, all three having escaped the convent. Alinda describes her father’s murder in grisly terms; Antonio promises to marry her and make her his queen, as soon as his revenge is complete. He then leaves to obtain a blade, with which he plans to kill Gonzalo.
+
+        There is a comedic interlude between a Palace Guard and Cornari, a buffoonish priest. At the end of the scene, Lodovico enters and bids Cornari to follow him. The priest is not seen on stage again.
+
+        ACT V:
+        The guests arrive at Gonzalo’s banquet. Gonzalo once again offers a toast, this time to the ambassadors of the foreign nations who are present. The meal is served; however, before it can begin, Antonio enters, bearing a signed confession he obtained from Petruccio off-stage, which includes the details of Sforza’s murder and proof of Antonio’s lineage. Gonzalo is deposed by the outraged courtiers; rather than murder him, however, Antonio instead decides to spare the usurper and let him accept exile to a monastery. He then orders Francisco to start making plans for his marriage to Alinda. The play ends with a dance staged by the courtiers.''')  # Currently prepared, not test
 
         self.scripts_list.add(self.script1)
         self.scripts_list.add(self.script2)
         self.scripts_list.add(self.script3)
         self.scripts_list.add(self.script4)
 
-        self.collide_scripts = False # scripts collide
+        self.collide_scripts = False  # scripts collide
         self.script_index = 0
 
         # map
@@ -61,9 +105,9 @@ class GameRenderData:
         self.level_rect = self.level_surface.get_rect()
 
         # box
-        # self.box = self.GFX["box"]
-        # self.boxpos = self.box.get_rect()
-        # print(self.viewport.x, self.viewport.y)
+        self.box = self.GFX["box"]
+        self.boxpos = self.box.get_rect()
+        print(self.viewport.x, self.viewport.y)
         self.messagebox = MessageBox()
 
         #blocks
@@ -76,33 +120,25 @@ class GameRenderData:
                 self.blockers.append(blocker)
 
         #player
-        self.boy1 = self.GFX['boy1']
-        self.girl1 = self.GFX['girl1']
-
-        self.player_index = 1
-
-        self.boy1pos = self.boy1.get_rect()
-        self.boy1pos.x = 100
-        self.boy1pos.y = 125
-        self.girl1pos = self.girl1.get_rect()
-        self.girl1pos.x = 550
-        self.girl1pos.y = 125
-
         self.player = None
+        for object in self.renderer.tmx_data.getObjects():
+            properties = object.__dict__
+            if object.name == 'spoint':
+                posx = object.x + 32
+                posy = object.y
+                # toodo change girl or boys
+                self.player = Player.Player('girl32', 'down', posx, posy)
+                self.player.rect.x = posx
+                self.player.rect.y = posy
+            else:
+                self.player = Player.Player('girl32', 'down')
+                self.player.rect.x = 320
+                self.player.rect.y = 320
 
-        #
-        self.find_message_size = 0
-        self.find_message_index = 0
-        self.find_messages = []
-
-        if self.player_index == 1:
-            self.player = Player.Player('boy32', 'down')
-            self.player.rect.x = 320
-            self.player.rect.y = 320
-            print 'boy'
+        self.processbar = ProcessBar(30, 40, 1000, 20)
 
         #texts on the first page
-        self.atexts = AnimateText([
+        self.atexts = AnimateText2([
             {"text": "Hey dude, I need your help. Really, you need to listen to me.",
              "x": 32 * 0,
              "y": 32 * 2,
@@ -154,7 +190,7 @@ class GameRenderData:
              "x": 32 * 0,
              "y": 32 * 11,
              "type": "text",
-             "offset": 2},
+             "offset": 1},
 
             {"text": "I\'m fine! Luckily not being harmed. At least I have my kidney preserved.",
              "x": 32 * 0,
@@ -249,22 +285,8 @@ class GameRenderData:
             {"text": "PRESS \'9\' to enter the camera",
              "x": 32 * 0,
              "y": 32 * 24,
-             "type": "endbutton",
+             "type": "button",
              "offset": 1},
-        ])
-
-
-
-
-
-
-
-
-
-
-
-        self.btexts = AnimateText([
-
 
             {"text": "Okay,I could see you.But the camera lost visual in long distance.",
              "x": 32 * 8,
@@ -285,6 +307,7 @@ class GameRenderData:
              "x": 32 * 8,
              "y": 32 * 24,
              "type": "text"},
+
 
             {"text": "[Data received]",
              "x": 32 * 8,
@@ -310,6 +333,8 @@ class GameRenderData:
              "x": 32 * 0,
              "y": 32 * 24,
              "type": "text"},
+
+
 
             {"text": "No.This place was nearly empty. Not even a rat!",
              "x": 32 * 0,
@@ -392,12 +417,11 @@ class GameRenderData:
              "y": 32 * 24,
              "type": "text"},
 
-            {
-                "text": "The picture that you give me was just a logo of a holiday village. OR I didn\'t find anything about the picture.",
-                "x": 32 * 3,
-                "y": 32 * 24,
-                "type": "button",
-                "offset": 12},
+            {"text": "The picture that you give me was just a logo of a holiday village. OR I didn\'t find anything about the picture.",
+             "x": 32 * 3,
+             "y": 32 * 24,
+             "type": "button",
+             "offset": 12},
 
             {"text": "That explains that stupid name.",
              "x": 32 * 0,
@@ -429,11 +453,10 @@ class GameRenderData:
              "y": 32 * 24,
              "type": "text"},
 
-            {
-                "text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
-                "x": 32 * 0,
-                "y": 32 * 24,
-                "type": "text"},
+            {"text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
+             "x": 32 * 0,
+             "y": 32 * 24,
+             "type": "text"},
 
             {"text": "\'Gonzalo orders Alinda, who witnessed the murder, to be locked up in the convent.\'",
              "x": 32 * 0,
@@ -455,11 +478,10 @@ class GameRenderData:
              "y": 32 * 24,
              "type": "text"},
 
-            {
-                "text": "Then this place is the where the devil rests! I could feel it! The wicked gas that I\'m breathing.",
-                "x": 32 * 0,
-                "y": 32 * 24,
-                "type": "text"},
+            {"text": "Then this place is the where the devil rests! I could feel it! The wicked gas that I\'m breathing.",
+             "x": 32 * 0,
+             "y": 32 * 24,
+             "type": "text"},
 
             {"text": "Calm down. I\'m just joking.Haha.",
              "x": 32 * 0,
@@ -471,11 +493,10 @@ class GameRenderData:
              "y": 32 * 24,
              "type": "text"},
 
-            {
-                "text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
-                "x": 32 * 0,
-                "y": 32 * 24,
-                "type": "text"},
+            {"text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
+             "x": 32 * 0,
+             "y": 32 * 24,
+             "type": "text"},
 
             {"text": "\'Gonzalo orders Alinda, who witnessed the murder, to be locked up in the convent...\'",
              "x": 32 * 0,
@@ -512,25 +533,24 @@ class GameRenderData:
              "y": 32 * 24,
              "type": "text"},
 
-            # 游戏界面
+            #游戏界面
 
             {"text": "Okay, it seems that I\'ve gathered a full piece of script here.There are some question marks.",
              "x": 32 * 0,
              "y": 32 * 24,
              "type": "text"},
 
-            {
-                "text": "No, I\'ll find out more about the place where you are. OR Send me the file and I\'ll take a look at it.",
-                "x": 32 * 8,
-                "y": 32 * 24,
-                "type": "button",
-                "offset": 2},
+            {"text": "No, I\'ll find out more about the place where you are. OR Send me the file and I\'ll take a look at it.",
+             "x": 32 * 8,
+             "y": 32 * 24,
+             "type": "button",
+             "offset": 2},
 
             {"text": "Well, I guess I\'ll just take a look at it.",
              "x": 32 * 0,
              "y": 32 * 24,
              "type": "text",
-             "offset": 5},
+              "offset": 5},
 
             {"text": "That's a good idea!",
              "x": 32 * 0,
@@ -1175,7 +1195,7 @@ class GameRenderData:
              "x": 32 * 0,
              "y": 32 * 24,
              "type": "button",
-             "offset": 1},
+             "offset":1},
 
             {"text": "Fuck, why are they staring at me?",
              "x": 32 * 0,
@@ -1294,11 +1314,28 @@ class GameRenderData:
              "type": "text"},
         ])
 
+        self.btexts = AnimateText([
+            {"text": "CAUTION, VISUAL SIGNAL LOST",
+             "x": 32 * 1,
+             "type": "text"},
 
+            {"text": "I can't see you.",
+             "x": 32 * 1,
+             "type": "text"}
+        ])
 
+# class TEXT:
+#     def __init__(self, text, x, y):
+#         self.text = render_data.FONT.render(text, 1, (225, 0, 0))
+#         self.textpos = self.text.get_rect()
+#         self.textpos.x = x
+#         self.textpos.y = y
+#         render_data.level_surface.blit(self.text, self.textpos)
+#         render_data.screen.blit(render_data.level_surface, (0, 0))
+#         # pg.time.delay(2000)
 
 class Scripts(pg.sprite.Sprite):
-    def __init__(self, imagepath, x, y):
+    def __init__(self, imagepath, x, y, message):
         pg.sprite.Sprite.__init__(self)
         self.image = load_all_gfx(os.path.join('resources', 'graphics'))[imagepath]
         self.rect = self.image.get_rect()
@@ -1309,41 +1346,137 @@ class Scripts(pg.sprite.Sprite):
         self.isTxtShow = False
         self.message = []
         pos = 0
-
-
+        for i in range(0, len(message)/36):
+            self.message.append(message[pos:(i+1)*36])
+            pos = (i+1)*36
+        self.message.append(message[pos:-1])
+        print self.message
+    # def update(self):
+    #     print ("blit")
+    #     pg.Surface(Renderer(load_all_tmx(os.path.join('resources', 'tmx'))["background2"]).make_map().get_rect().size).blit(self.image, self.rect)
 
 class MessageBox:
     def __init__(self):
-        self.message_surface = pg.Surface((600, 356))
+        self.message_surface = pg.Surface((340, 356))
         self.render_size = 0
         self.message_surface_rect = self.message_surface.get_rect()
-        self.message_surface_rect.x = 600
-        self.message_surface_rect.y = 356
-        self.isvalid = False
-        self.isShow = True
-        self.showhelp = False
-        self.isTxtShow = False
+        self.message_surface_rect.x = 1000-350
+        self.message_surface_rect.y = 600-200
         self.render_buff = []
         self.render_begin = 0
+        self.isvalid = False
+        self.isShow = True
+        self.help_buf = [" help shdjsdhff83yhfjsd"]
+        self.showhelp = False
 
-    def update(self, script):
-        # if not self.showhelp:
-        #     if not self.isvalid:
-        self.message_surface = pg.Surface((600, 356))
-        self.script = script
-        rect = self.script.get_rect()
-        rect.x = 20
-        rect.y = 20
-
+    def update(self):
+        if not self.showhelp:
+            if not self.isvalid:
+                self.message_surface = pg.Surface((340, 356))
+                for i in range(0, 10):
+                    if (self.render_begin+i)<self.render_size:
+                        text = render_data.FONT.render(self.render_buff[self.render_begin+i], 1, (255, 0, 0))
+                        textpos = text.get_rect()
+                        textpos.x = 20
+                        textpos.y = 32 * (i) + 10
+                        self.message_surface.blit(text, textpos)
+                    else:
+                        break
+                self.isvalid = True
+        else:
+            pass  # toodo: add show help message
         box_rect = render_data.messagebox.message_surface_rect
-        box_rect.x = render_data.viewport.x + (1000 - 600)
-        box_rect.y = render_data.viewport.y + (600 - 356)
+        box_rect.x = render_data.boxpos.x+3
+        box_rect.y = render_data.boxpos.y+5
         if self.isShow:
-            self.message_surface.blit(self.script, rect)
-            render_data.level_surface.blit(render_data.messagebox.message_surface, box_rect)
+            render_data.level_surface.blit(render_data.messagebox.message_surface,box_rect)
 
+    def append_messages(self, messages):
+        for i in range(0, len(messages)):
+            self.render_buff.append(messages[i])
+            self.render_size = self.render_size+1
+            if self.render_size>10:
+                self.render_begin = self.render_begin+1
+        self.isvalid = False
 
-class AnimateText:
+        # for i in range(0, len(messages)):
+        #     text = render_data.FONT.render(messages[i], 1, (255, 0, 0))
+        #     print text
+        #     textpos = text.get_rect()
+        #     textpos.x =  32
+        #     textpos.y = 32 * (self.render_index)
+        #     self.message_surface.blit(text, textpos)
+        #     if self.render_index>=10:
+        #         self.message_surface.scroll(0, -128)
+        #     self.render_index = self.render_index + 1
+
+    # def scrolls(self):
+    #     if self.render_index > 10:
+    #         self.message_surface.scroll(0, -32*(self.render_index - 10))
+
+    def check_for_input(self):
+        for event in render_data.events:
+            if event.type == pg.KEYDOWN:
+                keys = pg.key.get_pressed()
+                if event.key == pg.K_UP:
+                    self.page_up()
+                elif event.key == pg.K_DOWN:
+                    self.page_down()
+                elif event.key == pg.K_h:
+                    self.toggle()
+
+    def page_down(self):
+        # self.message_surface.scroll(0, -32)
+        if self.render_begin<self.render_size:
+            self.render_begin=self.render_begin+1
+            self.isvalid = False
+        else:
+            self.render_begin = self.render_size
+
+    def page_up(self):
+        # self.message_surface.scroll(0, 32)
+        if self.render_begin>0:
+            self.render_begin=self.render_begin-1
+            self.isvalid = False
+        else:
+            self.render_begin = 0
+
+    def toggle(self):
+        self.isShow = not self.isShow
+
+class ProcessBar:
+    def __init__(self, x, y, w, h, t=1000):
+        self.value = 0
+        self.current_time = pg.time.get_ticks()
+        self.x = x
+        self.y = y
+        self.height = h
+        self.width = w
+        self.t = t
+
+    def update(self):
+        time = pg.time.get_ticks()
+        if (time - self.current_time) > self.t:
+            self.value = self.value+1
+            if self.value<=100:
+                width = self.width/100.0 * self.value
+                self.processbar_surface = pg.Surface((self.width, self.height))
+                processbar_rect = self.processbar_surface.get_rect()
+                processbar_rect.width = width
+                self.processbar_surface.fill((0,0,255), processbar_rect)
+                text = render_data.FONT.render('{:d}%'.format(self.value), 1, (225, 0, 0))
+                textpos = text.get_rect()
+                textpos.x = self.width/2.0
+                textpos.y = 0
+                self.processbar_surface.blit(text, textpos)
+                processbar_rect.width = self.width
+                processbar_rect.x = self.x
+                processbar_rect.y = self.y
+                render_data.level_surface.blit(self.processbar_surface, processbar_rect)
+
+                self.current_time = time
+
+class AnimateText2:
     def __init__(self, scripts):
         self.message_surface = pg.Surface((1000, 600))
         self.render_size = 0
@@ -1361,7 +1494,7 @@ class AnimateText:
 
     def update(self):
         time = pg.time.get_ticks()
-        if (time - self.current_time) > 1000:
+        if (time - self.current_time) > 100:
             self.append_script()
             self.current_time = time
         if not self.isvalid:
@@ -1369,9 +1502,9 @@ class AnimateText:
             self.message_surface.fill((0, 0, 0))
             for i in range(0, 17):
                 if (self.render_begin+i)<self.render_size:
-                    text = render_data.FONT.render(self.render_buff[self.render_begin+i], 1, (255, 0, 0))
+                    text = render_data.FONT.render(self.render_buff[self.render_begin+i]["text"], 1, (255, 0, 0))
                     textpos = text.get_rect()
-                    textpos.x = 20
+                    textpos.x = self.render_buff[self.render_begin+i]["x"]
                     textpos.y = 32 * (i) + 10
                     self.message_surface.blit(text, textpos)
                 else:
@@ -1385,13 +1518,13 @@ class AnimateText:
         if not self.scripts_pause:
             if self.scripts_index<len(self.scripts):
                 if self.scripts[self.scripts_index]["type"]=='text':
-                    self.append_message(self.scripts[self.scripts_index]["text"])
+                    self.append_message(self.scripts[self.scripts_index])
                     offset = 1
                     if self.scripts[self.scripts_index].has_key('offset'):
                         offset = self.scripts[self.scripts_index]["offset"]
                     self.scripts_index=self.scripts_index+offset
                 elif self.scripts[self.scripts_index]["type"]=='button':
-                    self.append_message(self.scripts[self.scripts_index]["text"])
+                    self.append_message(self.scripts[self.scripts_index])
                     self.scripts_pause = True
 
     def append_message(self, messages):
@@ -1401,6 +1534,20 @@ class AnimateText:
             self.render_begin = self.render_begin+1
         self.isvalid = False
 
+        # for i in range(0, len(messages)):
+        #     text = render_data.FONT.render(messages[i], 1, (255, 0, 0))
+        #     print text
+        #     textpos = text.get_rect()
+        #     textpos.x =  32
+        #     textpos.y = 32 * (self.render_index)
+        #     self.message_surface.blit(text, textpos)
+        #     if self.render_index>=10:
+        #         self.message_surface.scroll(0, -128)
+        #     self.render_index = self.render_index + 1
+
+    # def scrolls(self):
+    #     if self.render_index > 10:
+    #         self.message_surface.scroll(0, -32*(self.render_index - 10))
 
     def check_for_input(self):
         for event in render_data.events:
@@ -1438,69 +1585,128 @@ class AnimateText:
     def toggle(self):
         self.isShow = not self.isShow
 
-def choose_player(render_data):
-    pg.init()
-    mouse_x, mouse_y = 0, 0
+class AnimateText:
+    def __init__(self, texts):
+        self.texts = texts
+        self.index = 0
+        self.current_time = pg.time.get_ticks()
+        self.render_buff_index = 0
+        self.has_answer = True
+    #     self.render_buff = []
+    #     self.render_buff_size = 17
+    #     self.render_buff_index = -1
+    #
+    # def appendTextRender(self):
+    #     if (len(self.render_buff)>0 and self.render_buff[len(self.render_buff)-1]==self.texts[self.index]):
+    #         return
+    #     else:
+    #         if len(self.render_buff) < self.render_buff_size:
+    #             self.render_buff.append(self.texts[self.index])
+    #         else:
+    #             self.render_buff_index = (self.render_buff_index + 1) % self.render_buff_size
+    #             self.render_buff[self.render_buff_index] = self.texts[self.index]
 
-    while True:
-    # if render_data.player_index == 0:
-        for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    exit()
+    def update(self):
+        time = pg.time.get_ticks()
+        if (self.index < len(self.texts)):
+            if (time - self.current_time) > 1000:
+                if self.texts[self.index]["type"]=="button":
+                    if self.has_answer:
+                        self.text = render_data.FONT.render(self.texts[self.index]["text"], 1, (225, 0, 0))
+                        self.textpos = self.text.get_rect()
+                        self.textpos.x = self.texts[self.index]["x"]
+                        self.textpos.y = 32 * (self.render_buff_index+2)
+                        render_data.level_surface.blit(self.text, self.textpos)
+                        if self.render_buff_index > 17:
+                            render_data.level_surface.scroll(0, -32)
+                        self.has_answer = False
+                    for event in render_data.events:
+                        if event.type == pg.KEYDOWN:
+                            keys = pg.key.get_pressed()
+                            if event.key == pg.K_RIGHT:
+                                self.current_time = time
+                                offset = self.texts[self.index]["offset"]
+                                self.index = self.index + offset
+                                self.render_buff_index = self.render_buff_index+1
+                                self.current_time = time
+                                self.has_answer = True
+                                break
+                            elif event.key == pg.K_LEFT:
+                                self.current_time = time
+                                self.index = self.index + 1
+                                self.render_buff_index = self.render_buff_index + 1
+                                self.current_time = time
+                                self.has_answer = True
+                                break
+                else:
+                    self.text = render_data.FONT.render(self.texts[self.index]["text"], 1, (225, 0, 0))
+                    self.textpos = self.text.get_rect()
+                    self.textpos.x = self.texts[self.index]["x"]
+                    self.textpos.y = 32 * (self.render_buff_index+2)
+                    offset = 1
+                    if self.texts[self.index].has_key('offset'):
+                        offset = self.texts[self.index]["offset"]
+                    render_data.level_surface.blit(self.text, self.textpos)
+                    if self.render_buff_index > 17:
+                        render_data.level_surface.scroll(0, -32)
+                    self.current_time = time
+                    self.index = self.index  + offset
+                    self.render_buff_index = self.render_buff_index+1
+        # time = pg.time.get_ticks()
+        # if (self.index < len(self.texts)):
+        #     if (time - self.current_time) > 1000:
+        #         if self.texts[self.index]["type"] == "button":
+        #             self.appendTextRender()
+        #             for event in render_data.events:
+        #                 if event.type == pg.KEYDOWN:
+        #                     if event.key == pg.K_SPACE:
+        #                         self.current_time = time
+        #                         self.index = self.index + 1
+        #                         self.current_time = time
+        #                         print "Yes"
+        #                         break
+        #                     elif event.key == pg.K_RETURN:
+        #                         self.current_time = time
+        #                         self.index = self.index + 1
+        #                         self.current_time = time
+        #                         print "No"
+        #                         break
+        #         else:
+        #             self.appendTextRender()
+        #             self.current_time = time
+        #             self.index = self.index + 1
+        #         render_data.level_surface.fill(0, 0, 0)
+        #         for i in range(0, len(self.render_buff), 1):
+        #             pos = (self.render_buff_index+i+1) % len(self.render_buff)
+        #             text = render_data.FONT.render(self.render_buff[i]["text"], 1, (225, 0, 0))
+        #             textpos = text.get_rect()
+        #             textpos.x = self.render_buff[i]["x"]
+        #             textpos.y = 32 * (i+2)
+        #             render_data.level_surface.blit(text, textpos)
 
-                elif event.type == pg.MOUSEBUTTONDOWN:
-                    pressed_array = pg.mouse.get_pressed()
-                    for index in range(len(pressed_array)):
-                        if pressed_array[index]:
-                            if index==0 and 100 < mouse_x < 450 and 125 < mouse_y < 475:
-                                print mouse_x, mouse_y
-                                render_data.player_index = 1
-                                print (render_data.player_index)
-                                return ('START', render_data)
 
-                            elif index==0 and 550 < mouse_x < 900 and 125 < mouse_y < 475:
-                                render_data.player_index = 2
-                                print render_data.player_index
-                                render_data.player = Player.Player('girl32', 'down')
-                                render_data.player.rect.x = 320
-                                render_data.player.rect.y = 320
-                                print 'boy'
-
-                                return ('START', render_data)
-
-                elif event.type == pg.MOUSEMOTION:
-                    pos = pg.mouse.get_pos()
-                    mouse_x = pos[0]
-                    mouse_y = pos[1]
-                    print mouse_x, mouse_y
-
-        render_data.level_surface.blit(render_data.boy1, render_data.boy1pos)
-        render_data.level_surface.blit(render_data.girl1, render_data.girl1pos)
-        render_data.screen.blit(render_data.level_surface, (0, 0))
-        pg.display.update()
-
-    return ('CHOOSEPLAYER', render_data)
-
+    def Toggle(self):
+        self.pause = not self.pause
 
 def start_game(render_data):
-
+    surface = pg.Surface((1000, 600))
     for event in render_data.events:
         if event.type == pg.QUIT:
             done = True
         elif event.type == pg.KEYDOWN:
             keys = pg.key.get_pressed()
-            if render_data.atexts.scripts_index < len(render_data.atexts.scripts) and \
-                            render_data.atexts.scripts[render_data.atexts.scripts_index]["type"] == 'endbutton' and \
-                    event.key == pg.K_9:
+            if event.key == pg.K_9:
                 return ("LOADPLAYERMAP", render_data)
         elif event.type == pg.KEYUP:
             keys = pg.key.get_pressed()
 
+
     render_data.atexts.update()
-    if render_data.atexts.scripts_index < len(render_data.atexts.scripts) and \
-                    render_data.atexts.scripts[render_data.atexts.scripts_index]["type"] == 'button':
-        render_data.atexts.check_for_input()
+    render_data.atexts.check_for_input()
+    render_data.processbar.update()
     render_data.screen.blit(render_data.level_surface, (0, 0))
+
+
 
     return ("START", render_data)
 
@@ -1517,38 +1723,6 @@ def load_player_map(render_data):
     render_data.player.rect.move_ip(render_data.player.x_vel, render_data.player.y_vel)
     player_collided_blocker = False
 
-    # collide with the scripts
-    sprites_collide_scripts = pg.sprite.spritecollide(render_data.player, render_data.scripts_list, True)
-    if len(sprites_collide_scripts)>0:
-        render_data.script1.isTxtShow = False
-        render_data.script2.isTxtShow = False
-        render_data.script3.isTxtShow = False
-        render_data.script4.isTxtShow = False
-        render_data.find_message_size +=1
-
-    for event in render_data.events:
-        if event.type == pg.KEYDOWN:
-            keys = pg.key.get_pressed()
-            if event.key == pg.K_UP:
-                if render_data.find_message_index >0:
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = False
-                    render_data.find_message_index = render_data.find_message_index - 1
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = True
-            elif event.key == pg.K_DOWN:
-                if render_data.find_message_index < render_data.find_message_size - 1:
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = False
-                    render_data.find_message_index = render_data.find_message_index + 1
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = True
-
-    for s in sprites_collide_scripts:
-        s.iscollided = True
-        s.isShow = False
-        s.isTxtShow = True
-        render_data.collide_scripts = True
-        render_data.find_messages.append(s)
-        # script_index +=1
-
-    # collide with the blockers
     for blocker in render_data.blockers:
         if render_data.player.rect.colliderect(blocker):
             player_collided_blocker = True
@@ -1560,82 +1734,63 @@ def load_player_map(render_data):
             render_data.player.begin_resting()
         render_data.level_surface = pg.Surface(render_data.map_rect.size)
         render_data.atexts.index = 0
-        if render_data.find_message_size == 4:
-            return ("BLACKEND", render_data)
+        return ("START", render_data)
 
     if render_data.player.rect.x % 32 == 0 and render_data.player.rect.y % 32 == 0:
         if not render_data.player.state == 'resting':
             pass
             render_data.player.begin_resting()
 
-
+    # collide with the scripts
+    sprites_collide_scripts = pg.sprite.spritecollide(render_data.player, render_data.scripts_list, True)
+    for s in sprites_collide_scripts:
+        s.iscollided = True
+        s.isShow = False
+        s.isTxtShow = True
+        render_data.collide_scripts = True
 
     render_data.viewport.center = render_data.player.rect.center
     # render_data.viewport.center = (320, 330)
     render_data.viewport.clamp_ip(render_data.level_rect)
+
     render_data.level_surface.blit(render_data.map_image, render_data.viewport, render_data.viewport)
-
     # render box
-    # render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
-    # render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
-    # render_data.level_surface.blit(render_data.box, render_data.boxpos)
-
-    # render scripts & message box
+    # print (render_data.viewport.x, render_data.viewport.y)
+    # render_data.boxpos.x = 0
+    # render_data.boxpos.y = 0
+    render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
+    render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
+    render_data.level_surface.blit(render_data.box, render_data.boxpos)
+    # render scripts
     if render_data.script1.isShow:
         render_data.level_surface.blit(render_data.script1.image, render_data.script1.rect)
     if render_data.script1.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['1'])
-        render_data.script1.isTxtShow = True
-        render_data.script_index += 1
+        render_data.messagebox.append_messages(render_data.script1.message)
+        render_data.script1.isTxtShow = False
 
     if  render_data.script2.isShow:
         render_data.level_surface.blit(render_data.script2.image, render_data.script2.rect)
     if render_data.script2.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['2'])
-        render_data.script2.isTxtShow = True
-        render_data.script_index += 1
-
-    if render_data.script3.isShow:
-        render_data.level_surface.blit(render_data.script3.image, render_data.script3.rect)
-    if render_data.script3.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['3'])
-        render_data.script3.isTxtShow = True
-        render_data.script_index += 1
-
-    if  render_data.script4.isShow:
-        render_data.level_surface.blit(render_data.script4.image, render_data.script4.rect)
-    if render_data.script4.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['4'])
-        render_data.script4.isTxtShow = True
-        render_data.script_index += 1
-
+        render_data.messagebox.append_messages(render_data.script2.message)
+        render_data.script2.isTxtShow = False
     # render player
-    # render_data.messagebox.update()
-    # render_data.messagebox.check_for_input()
+    render_data.messagebox.update()
+    render_data.messagebox.check_for_input()
     render_data.level_surface.blit(render_data.player.image, render_data.player.rect)
 
+    # if render_data.collide_scripts == True:
+    #     text = render_data.FONT.render('test', 1, (255, 0, 0))
+    #     textpos = text.get_rect()
+    #     textpos.x = render_data.boxpos.x + 32
+    #     textpos.y = render_data.boxpos.y + 32
+    #     render_data.level_surface.blit(text, textpos)
+        # render_data.collide_scripts = False
 
-    #general
     render_data.screen.blit(render_data.level_surface, (0, 0), render_data.viewport)
     return ("LOADPLAYERMAP", render_data)
 
-def black_end(render_data):
-    for event in render_data.events:
-        if event.type == pg.QUIT:
-            done = True
-        elif event.type == pg.KEYUP:
-            keys = pg.key.get_pressed()
 
-    render_data.btexts.update()
-    if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
-                    render_data.btexts.scripts[render_data.btexts.scripts_index]["type"] == 'button':
-        render_data.btexts.check_for_input()
-    render_data.screen.blit(render_data.level_surface, (0, 0))
-
-
-
-    return ("BLACKEND", render_data)
-
+    # return ("LOADPLAYER", render_data)
 
 if __name__ == "__main__":
 
@@ -1664,12 +1819,10 @@ if __name__ == "__main__":
 
     # new a render state machine
     render_state_machine = StateMachine()
-    render_state_machine.add("CHOOSEPLAYER", choose_player)
     render_state_machine.add("START", start_game)
     render_state_machine.add("LOADPLAYERMAP", load_player_map)
-    render_state_machine.add("BLACKEND",black_end)
     render_state_machine.add("GAMEOVER", None, end_state=1)
-    render_state_machine.setStart("CHOOSEPLAYER")
+    render_state_machine.setStart("START")
 
 
     while not done:

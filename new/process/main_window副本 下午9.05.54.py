@@ -29,12 +29,12 @@ class GameRenderData:
         self.level_rect = None
         self.screen = pg.display.get_surface()
 
-        # # initialization dialog box
-        # self.bground = self.GFX['box']
-        # self.bgroundrect = self.bground.get_rect(centerx=400)
-        # self.bgroundimage = pg.Surface(self.bgroundrect.size)
-        # self.bgroundimage.set_colorkey((0, 0, 0))
-        # self.bgroundimage.blit(self.bground, (0, 0))
+        # initialization dialog box
+        self.bground = self.GFX['box']
+        self.bgroundrect = self.bground.get_rect(centerx=400)
+        self.bgroundimage = pg.Surface(self.bgroundrect.size)
+        self.bgroundimage.set_colorkey((0, 0, 0))
+        self.bgroundimage.blit(self.bground, (0, 0))
 
         # scripts
         self.scripts_list = pg.sprite.Group()
@@ -61,9 +61,9 @@ class GameRenderData:
         self.level_rect = self.level_surface.get_rect()
 
         # box
-        # self.box = self.GFX["box"]
-        # self.boxpos = self.box.get_rect()
-        # print(self.viewport.x, self.viewport.y)
+        self.box = self.GFX["box"]
+        self.boxpos = self.box.get_rect()
+        print(self.viewport.x, self.viewport.y)
         self.messagebox = MessageBox()
 
         #blocks
@@ -89,11 +89,6 @@ class GameRenderData:
         self.girl1pos.y = 125
 
         self.player = None
-
-        #
-        self.find_message_size = 0
-        self.find_message_index = 0
-        self.find_messages = []
 
         if self.player_index == 1:
             self.player = Player.Player('boy32', 'down')
@@ -245,26 +240,14 @@ class GameRenderData:
              "x": 32 * 8,
              "y": 32 * 24,
              "type": "text"},
+        ])
 
+        self.btexts = AnimateText([
             {"text": "PRESS \'9\' to enter the camera",
              "x": 32 * 0,
              "y": 32 * 24,
-             "type": "endbutton",
+             "type": "button",
              "offset": 1},
-        ])
-
-
-
-
-
-
-
-
-
-
-
-        self.btexts = AnimateText([
-
 
             {"text": "Okay,I could see you.But the camera lost visual in long distance.",
              "x": 32 * 8,
@@ -1298,7 +1281,7 @@ class GameRenderData:
 
 
 class Scripts(pg.sprite.Sprite):
-    def __init__(self, imagepath, x, y):
+    def __init__(self, imagepath, x, y, scriptspath):
         pg.sprite.Sprite.__init__(self)
         self.image = load_all_gfx(os.path.join('resources', 'graphics'))[imagepath]
         self.rect = self.image.get_rect()
@@ -1309,38 +1292,78 @@ class Scripts(pg.sprite.Sprite):
         self.isTxtShow = False
         self.message = []
         pos = 0
-
-
+        self.scriptspath = scriptspath
 
 class MessageBox:
     def __init__(self):
-        self.message_surface = pg.Surface((600, 356))
+        self.message_surface = pg.Surface((340, 356))
         self.render_size = 0
         self.message_surface_rect = self.message_surface.get_rect()
-        self.message_surface_rect.x = 600
-        self.message_surface_rect.y = 356
-        self.isvalid = False
-        self.isShow = True
-        self.showhelp = False
-        self.isTxtShow = False
+        self.message_surface_rect.x = 1000-350
+        self.message_surface_rect.y = 600-200
         self.render_buff = []
         self.render_begin = 0
+        self.isvalid = False
+        self.isShow = True
+        self.help_buf = [" help shdjsdhff83yhfjsd"]
+        self.showhelp = False
 
-    def update(self, script):
-        # if not self.showhelp:
-        #     if not self.isvalid:
-        self.message_surface = pg.Surface((600, 356))
-        self.script = script
-        rect = self.script.get_rect()
-        rect.x = 20
-        rect.y = 20
+    def update(self, image):
+        if not self.showhelp:
+            if not self.isvalid:
+                self.message_surface = pg.Surface((340, 356))
+                image = render_data.script1.scriptspath
+                image.rect = image.get_rect()
+                image.rect.x = 20
+                image.rect.y = 32
+                self.message_surface.blit(image, image.rect)
 
+                self.isvalid = True
         box_rect = render_data.messagebox.message_surface_rect
-        box_rect.x = render_data.viewport.x + (1000 - 600)
-        box_rect.y = render_data.viewport.y + (600 - 356)
+        box_rect.x = render_data.boxpos.x+5
+        box_rect.y = render_data.boxpos.y+5
         if self.isShow:
-            self.message_surface.blit(self.script, rect)
-            render_data.level_surface.blit(render_data.messagebox.message_surface, box_rect)
+            render_data.level_surface.blit(render_data.messagebox.message_surface,box_rect)
+
+    # def append_messages(self, messages):
+    #     for i in range(0, len(messages)):
+    #         self.render_buff.append(messages[i])
+    #         self.render_size = self.render_size+1
+    #         if self.render_size>10:
+    #             self.render_begin = self.render_begin+1
+    #     self.isvalid = False
+
+
+    def check_for_input(self):
+        for event in render_data.events:
+            if event.type == pg.KEYDOWN:
+                keys = pg.key.get_pressed()
+                if event.key == pg.K_UP:
+                    self.page_up()
+                elif event.key == pg.K_DOWN:
+                    self.page_down()
+                elif event.key == pg.K_h:
+                    self.toggle()
+
+    def page_down(self):
+        # self.message_surface.scroll(0, -32)
+        if self.render_begin<self.render_size:
+            self.render_begin=self.render_begin+1
+            self.isvalid = False
+        else:
+            self.render_begin = self.render_size
+
+    def page_up(self):
+        # self.message_surface.scroll(0, 32)
+        if self.render_begin>0:
+            self.render_begin=self.render_begin-1
+            self.isvalid = False
+        else:
+            self.render_begin = 0
+
+    def toggle(self):
+        self.isShow = not self.isShow
+
 
 
 class AnimateText:
@@ -1489,17 +1512,14 @@ def start_game(render_data):
             done = True
         elif event.type == pg.KEYDOWN:
             keys = pg.key.get_pressed()
-            if render_data.atexts.scripts_index < len(render_data.atexts.scripts) and \
-                            render_data.atexts.scripts[render_data.atexts.scripts_index]["type"] == 'endbutton' and \
-                    event.key == pg.K_9:
+            if event.key == pg.K_9:
                 return ("LOADPLAYERMAP", render_data)
         elif event.type == pg.KEYUP:
             keys = pg.key.get_pressed()
 
     render_data.atexts.update()
-    if render_data.atexts.scripts_index < len(render_data.atexts.scripts) and \
-                    render_data.atexts.scripts[render_data.atexts.scripts_index]["type"] == 'button':
-        render_data.atexts.check_for_input()
+    # if atexts.scripts[atexts.scripts_index]["type"]=='button':
+    render_data.atexts.check_for_input()
     render_data.screen.blit(render_data.level_surface, (0, 0))
 
     return ("START", render_data)
@@ -1519,33 +1539,11 @@ def load_player_map(render_data):
 
     # collide with the scripts
     sprites_collide_scripts = pg.sprite.spritecollide(render_data.player, render_data.scripts_list, True)
-    if len(sprites_collide_scripts)>0:
-        render_data.script1.isTxtShow = False
-        render_data.script2.isTxtShow = False
-        render_data.script3.isTxtShow = False
-        render_data.script4.isTxtShow = False
-        render_data.find_message_size +=1
-
-    for event in render_data.events:
-        if event.type == pg.KEYDOWN:
-            keys = pg.key.get_pressed()
-            if event.key == pg.K_UP:
-                if render_data.find_message_index >0:
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = False
-                    render_data.find_message_index = render_data.find_message_index - 1
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = True
-            elif event.key == pg.K_DOWN:
-                if render_data.find_message_index < render_data.find_message_size - 1:
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = False
-                    render_data.find_message_index = render_data.find_message_index + 1
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = True
-
     for s in sprites_collide_scripts:
         s.iscollided = True
         s.isShow = False
         s.isTxtShow = True
         render_data.collide_scripts = True
-        render_data.find_messages.append(s)
         # script_index +=1
 
     # collide with the blockers
@@ -1560,7 +1558,7 @@ def load_player_map(render_data):
             render_data.player.begin_resting()
         render_data.level_surface = pg.Surface(render_data.map_rect.size)
         render_data.atexts.index = 0
-        if render_data.find_message_size == 4:
+        if render_data.script_index == 4:
             return ("BLACKEND", render_data)
 
     if render_data.player.rect.x % 32 == 0 and render_data.player.rect.y % 32 == 0:
@@ -1576,42 +1574,42 @@ def load_player_map(render_data):
     render_data.level_surface.blit(render_data.map_image, render_data.viewport, render_data.viewport)
 
     # render box
-    # render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
-    # render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
-    # render_data.level_surface.blit(render_data.box, render_data.boxpos)
+    render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
+    render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
+    render_data.level_surface.blit(render_data.box, render_data.boxpos)
 
     # render scripts & message box
     if render_data.script1.isShow:
         render_data.level_surface.blit(render_data.script1.image, render_data.script1.rect)
     if render_data.script1.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['1'])
-        render_data.script1.isTxtShow = True
+        render_data.messagebox.update()
+        render_data.script1.isTxtShow = False
         render_data.script_index += 1
 
     if  render_data.script2.isShow:
         render_data.level_surface.blit(render_data.script2.image, render_data.script2.rect)
     if render_data.script2.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['2'])
-        render_data.script2.isTxtShow = True
+        render_data.messagebox.update()
+        render_data.script2.isTxtShow = False
         render_data.script_index += 1
 
     if render_data.script3.isShow:
         render_data.level_surface.blit(render_data.script3.image, render_data.script3.rect)
     if render_data.script3.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['3'])
-        render_data.script3.isTxtShow = True
+        render_data.messagebox.update()
+        render_data.script3.isTxtShow = False
         render_data.script_index += 1
 
     if  render_data.script4.isShow:
         render_data.level_surface.blit(render_data.script4.image, render_data.script4.rect)
     if render_data.script4.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['4'])
-        render_data.script4.isTxtShow = True
+        render_data.messagebox.update()
+        render_data.script4.isTxtShow = False
         render_data.script_index += 1
 
     # render player
-    # render_data.messagebox.update()
-    # render_data.messagebox.check_for_input()
+    render_data.messagebox.update()
+    render_data.messagebox.check_for_input()
     render_data.level_surface.blit(render_data.player.image, render_data.player.rect)
 
 
@@ -1627,9 +1625,6 @@ def black_end(render_data):
             keys = pg.key.get_pressed()
 
     render_data.btexts.update()
-    if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
-                    render_data.btexts.scripts[render_data.btexts.scripts_index]["type"] == 'button':
-        render_data.btexts.check_for_input()
     render_data.screen.blit(render_data.level_surface, (0, 0))
 
 

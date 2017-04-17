@@ -33,13 +33,6 @@ class StateMachine:
             else:
                 handler = self.handlers[upper(newState)]
 
-    # def Step(self, cargo):
-    #     if upper(self.currentState) in self.endStates:
-    #         return
-    #     else:
-    #         handler = self.handlers[self.currentState]
-    #         (newState, cargo) = handler(cargo)
-    #         self.currentState = newState
 
     def update(self, cargo):
         handler = self.handlers[self.currentState]

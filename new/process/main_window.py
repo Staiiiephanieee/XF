@@ -29,19 +29,63 @@ class GameRenderData:
         self.level_rect = None
         self.screen = pg.display.get_surface()
 
-        # # initialization dialog box
-        # self.bground = self.GFX['box']
-        # self.bgroundrect = self.bground.get_rect(centerx=400)
-        # self.bgroundimage = pg.Surface(self.bgroundrect.size)
-        # self.bgroundimage.set_colorkey((0, 0, 0))
-        # self.bgroundimage.blit(self.bground, (0, 0))
+        # initialization dialog box
+        self.bground = self.GFX['box']
+        self.bgroundrect = self.bground.get_rect(centerx=400)
+        self.bgroundimage = pg.Surface(self.bgroundrect.size)
+        self.bgroundimage.set_colorkey((0, 0, 0))
+        self.bgroundimage.blit(self.bground, (0, 0))
 
         # scripts
         self.scripts_list = pg.sprite.Group()
-        self.script1 = Scripts('script1', 32 * 7, 32 * 9.5)
-        self.script2 = Scripts('script2', 32 * 13, 32 * 15.6)
-        self.script3 = Scripts('script1', 32 * 2, 32 * 12.5)
-        self.script4 = Scripts('script2', 32 * 3.5, 32 * 6)
+        self.script1 = Scripts('script1', 32 * 7, 32 * 9.5, '''DRAMATIS PERSONAE:
+               GONZALO, King of Trinculo
+               ISABELLA, Queen of Trinculo; formerly the wife of Sforza, the murdered king, now married to Gonzalo
+               ANTONIO, a minor noble
+               FRANCISCO, Antonio’s servant
+               The DUKE OF SORTINO
+               ALINDA, daughter of the Duke
+               PETRUCCIO, a noble lord allied with Gonzalo
+               LODOVICO, a servant of Gonzalo
+               CORNARI, a priest
+               BEATRICE, a servant of the Queen
+               A COURTESAN
+               A PALACE GUARDSMAN
+               The AMBASSADOR OF MILAN
+               The AMBASSADOR OF FLORENCE
+               The AMBASSADOR OF ALAGADDA
+               SETTING:
+               The play is set in the Kingdom of Trinculo (probably a misspelling of Trinacria, another name for Sicily), in the capital city of Serko (another name for the city of Syracuse). As the play opens, Sforza, the king of Trinculo, has died, supposedly from natural causes while on retreat from the court. The nobility of Trinculo gathers in the capital for the coronation of the new king, Sforza’s younger brother, Gonzalo, who has also married Sforza’s queen, Isabella.
+
+               Despite the text’s references to contemporary Italian city-states, such as Florence and Milan, much of the play’s setting is obviously pure fantasy. There were never any kings of Sicily comparable to Gonzalo and Sforza, and the capital of the historical Kingdom of Sicily was Palermo, not Syracuse. (The author may have chosen to move the play’s events to Syracuse, due to that city’s historical association with tyranny). There is also no record of any country or place known by the name Alagadda, a mysterious but apparently powerful state that plays a significant role in the plot. It may be intended as a reference to one of the Muslim states or cities on the Mediterranean coast, such as Tunis or Algiers.
+               ''')
+        self.script2 = Scripts('script2', 32 * 13, 32 * 15.6, '''PLOT SUMMARY:
+               The plot of The Hanged King’s Tragedy bears a marked resemblance to many earlier plays of the same genre, including Shakespeare’s Hamlet and Titus Andronicus. In fact, past investigations into SCP-701 events have noted that The Hanged King’s Tragedy was often chosen for production as a less-violent alternative to the two plays mentioned. The two murders in the SCP-701 text can be construed as occurring off-stage, and the implication of cannibalism in Act III can be easily cut from the script.
+
+               ACT I:
+               The play opens during Gonzalo’s coronation. Gonzalo opens with a toast to the assembled nobility, then departs the stage. Drunk on the wine, Isabella confesses to some of the courtiers left on stage that Sforza did not die in his sleep as reported. Instead, while on retreat in the countryside, Sforza was fed a sleeping potion by Isabella, then murdered by Gonzalo and his supporters. As a final show of disrespect, the conspirators hanged the King like a common criminal from a tree. Isabella goes on to proclaim that Antonio, a minor noble visiting the King’s court for the first time, is actually her and Sforza’s son and the rightful heir to the throne. Isabella collapses and is taken offstage by her servants.
+
+               Francisco asks Antonio if he believes the Queen’s story. Antonio makes light of the situation, and they exit. Back in Antonio’s rented lodgings, Francisco attempts to barter with a Courtesan. Antonio enters the stage, clearly in shock. He reports that, while off-stage, he saw the Ghost of Sforza, who confirmed Antonio’s parentage and the Queen’s description of his death.
+               ''')
+        self.script3 = Scripts('script1', 32 * 2, 32 * 12.5, '''ACT II:
+               Gonzalo, having learned of Isabella’s confession, consults with his fellow conspirators. Lodovico confirms that at least three people witnessed the Queen’s breakdown – the Duke of Sortino, his daughter Alinda, and a priest named Cornari. Gonzalo immediately begins to plan the murder or capture of the three in order to cover up the truth. He orders Isabella to be locked up in a convent, with the story put out that the Queen is mad. Isabella, uncharacteristically, meekly accepts Gonzalo’s judgment. The usurper then exits, having an appointment with the ambassador from Alagadda.
+
+               Back in their lodgings in the city, Francisco brings Antonio news of the Queen’s imprisonment. Together, they begin to plan their revenge.
+
+               ACT III:
+               Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew. Gonzalo orders Alinda, who witnessed the murder, to be locked up in the convent.
+
+               Antonio fakes insanity in order to gain admittance to the convent. Warned of Antonio’s coming, Isabella and her loyal servant, Beatrice, prepare to murder him using a draught of poison. Antonio sees through their plan and forces Isabella to drink the poison, killing her. Meanwhile, Francisco gets lost within the convent and winds up freeing Alinda from her cell by accident.
+               ''')
+        self.script4 = Scripts('script2', 32 * 3.5, 32 * 6, '''ACT IV:
+               In the palace, Gonzalo reports to Lodovico that he has, in exchange for an unstated ‘tribute,’ obtained a powerful and tasteless poison from the ambassador of Alagadda. Gonzalo plans to poison the stew made from the Duke of Sortino’s corpse and feed it to the court, thus ensuring the suppression of the truth. Lodovico leaves the stage to carry out the usurper’s plan. Gonzalo then has a brief moment of conscience: in a soliloquy, he describes the regret he carries for his sins, but is nonetheless unable to deviate from the path he has set.
+
+               Meanwhile, Francisco introduces Alinda to Antonio, all three having escaped the convent. Alinda describes her father’s murder in grisly terms; Antonio promises to marry her and make her his queen, as soon as his revenge is complete. He then leaves to obtain a blade, with which he plans to kill Gonzalo.
+
+               There is a comedic interlude between a Palace Guard and Cornari, a buffoonish priest. At the end of the scene, Lodovico enters and bids Cornari to follow him. The priest is not seen on stage again.
+
+               ACT V:
+               The guests arrive at Gonzalo’s banquet. Gonzalo once again offers a toast, this time to the ambassadors of the foreign nations who are present. The meal is served; however, before it can begin, Antonio enters, bearing a signed confession he obtained from Petruccio off-stage, which includes the details of Sforza’s murder and proof of Antonio’s lineage. Gonzalo is deposed by the outraged courtiers; rather than murder him, however, Antonio instead decides to spare the usurper and let him accept exile to a monastery. He then orders Francisco to start making plans for his marriage to Alinda. The play ends with a dance staged by the courtiers.''')  # Currently prepared, not test
 
         self.scripts_list.add(self.script1)
         self.scripts_list.add(self.script2)
@@ -61,9 +105,9 @@ class GameRenderData:
         self.level_rect = self.level_surface.get_rect()
 
         # box
-        # self.box = self.GFX["box"]
-        # self.boxpos = self.box.get_rect()
-        # print(self.viewport.x, self.viewport.y)
+        self.box = self.GFX["box"]
+        self.boxpos = self.box.get_rect()
+        print(self.viewport.x, self.viewport.y)
         self.messagebox = MessageBox()
 
         #blocks
@@ -89,11 +133,6 @@ class GameRenderData:
         self.girl1pos.y = 125
 
         self.player = None
-
-        #
-        self.find_message_size = 0
-        self.find_message_index = 0
-        self.find_messages = []
 
         if self.player_index == 1:
             self.player = Player.Player('boy32', 'down')
@@ -249,8 +288,9 @@ class GameRenderData:
             {"text": "PRESS \'9\' to enter the camera",
              "x": 32 * 0,
              "y": 32 * 24,
-             "type": "endbutton",
+             "type": "button",
              "offset": 1},
+
         ])
 
 
@@ -259,12 +299,7 @@ class GameRenderData:
 
 
 
-
-
-
-
         self.btexts = AnimateText([
-
 
             {"text": "Okay,I could see you.But the camera lost visual in long distance.",
              "x": 32 * 8,
@@ -1298,7 +1333,7 @@ class GameRenderData:
 
 
 class Scripts(pg.sprite.Sprite):
-    def __init__(self, imagepath, x, y):
+    def __init__(self, imagepath, x, y, message):
         pg.sprite.Sprite.__init__(self)
         self.image = load_all_gfx(os.path.join('resources', 'graphics'))[imagepath]
         self.rect = self.image.get_rect()
@@ -1309,38 +1344,90 @@ class Scripts(pg.sprite.Sprite):
         self.isTxtShow = False
         self.message = []
         pos = 0
-
-
+        for i in range(0, len(message)/36):
+            self.message.append(message[pos:(i+1)*36])
+            pos = (i+1)*36
+        self.message.append(message[pos:-1])
+        print self.message
+    # def update(self):
+    #     print ("blit")
+    #     pg.Surface(Renderer(load_all_tmx(os.path.join('resources', 'tmx'))["background2"]).make_map().get_rect().size).blit(self.image, self.rect)
 
 class MessageBox:
     def __init__(self):
-        self.message_surface = pg.Surface((600, 356))
+        self.message_surface = pg.Surface((340, 356))
         self.render_size = 0
         self.message_surface_rect = self.message_surface.get_rect()
-        self.message_surface_rect.x = 600
-        self.message_surface_rect.y = 356
-        self.isvalid = False
-        self.isShow = True
-        self.showhelp = False
-        self.isTxtShow = False
+        self.message_surface_rect.x = 1000-350
+        self.message_surface_rect.y = 600-200
         self.render_buff = []
         self.render_begin = 0
+        self.isvalid = False
+        self.isShow = True
+        self.help_buf = [" help shdjsdhff83yhfjsd"]
+        self.showhelp = False
 
-    def update(self, script):
-        # if not self.showhelp:
-        #     if not self.isvalid:
-        self.message_surface = pg.Surface((600, 356))
-        self.script = script
-        rect = self.script.get_rect()
-        rect.x = 20
-        rect.y = 20
-
+    def update(self):
+        if not self.showhelp:
+            if not self.isvalid:
+                self.message_surface = pg.Surface((340, 356))
+                for i in range(0, 10):
+                    if (self.render_begin+i)<self.render_size:
+                        text = render_data.FONT.render(self.render_buff[self.render_begin+i], 1, (255, 0, 0))
+                        textpos = text.get_rect()
+                        textpos.x = 20
+                        textpos.y = 32 * (i) + 10
+                        self.message_surface.blit(text, textpos)
+                    else:
+                        break
+                self.isvalid = True
+        else:
+            pass  # toodo: add show help message
         box_rect = render_data.messagebox.message_surface_rect
-        box_rect.x = render_data.viewport.x + (1000 - 600)
-        box_rect.y = render_data.viewport.y + (600 - 356)
+        box_rect.x = render_data.boxpos.x+5
+        box_rect.y = render_data.boxpos.y+5
         if self.isShow:
-            self.message_surface.blit(self.script, rect)
-            render_data.level_surface.blit(render_data.messagebox.message_surface, box_rect)
+            render_data.level_surface.blit(render_data.messagebox.message_surface,box_rect)
+
+    def append_messages(self, messages):
+        for i in range(0, len(messages)):
+            self.render_buff.append(messages[i])
+            self.render_size = self.render_size+1
+            if self.render_size>10:
+                self.render_begin = self.render_begin+1
+        self.isvalid = False
+
+
+    def check_for_input(self):
+        for event in render_data.events:
+            if event.type == pg.KEYDOWN:
+                keys = pg.key.get_pressed()
+                if event.key == pg.K_UP:
+                    self.page_up()
+                elif event.key == pg.K_DOWN:
+                    self.page_down()
+                elif event.key == pg.K_h:
+                    self.toggle()
+
+    def page_down(self):
+        # self.message_surface.scroll(0, -32)
+        if self.render_begin<self.render_size:
+            self.render_begin=self.render_begin+1
+            self.isvalid = False
+        else:
+            self.render_begin = self.render_size
+
+    def page_up(self):
+        # self.message_surface.scroll(0, 32)
+        if self.render_begin>0:
+            self.render_begin=self.render_begin-1
+            self.isvalid = False
+        else:
+            self.render_begin = 0
+
+    def toggle(self):
+        self.isShow = not self.isShow
+
 
 
 class AnimateText:
@@ -1489,16 +1576,14 @@ def start_game(render_data):
             done = True
         elif event.type == pg.KEYDOWN:
             keys = pg.key.get_pressed()
-            if render_data.atexts.scripts_index < len(render_data.atexts.scripts) and \
-                            render_data.atexts.scripts[render_data.atexts.scripts_index]["type"] == 'endbutton' and \
-                    event.key == pg.K_9:
+            if event.key == pg.K_9:
                 return ("LOADPLAYERMAP", render_data)
         elif event.type == pg.KEYUP:
             keys = pg.key.get_pressed()
 
     render_data.atexts.update()
     if render_data.atexts.scripts_index < len(render_data.atexts.scripts) and \
-                    render_data.atexts.scripts[render_data.atexts.scripts_index]["type"] == 'button':
+        render_data.atexts.scripts[render_data.atexts.scripts_index]["type"]=='button':
         render_data.atexts.check_for_input()
     render_data.screen.blit(render_data.level_surface, (0, 0))
 
@@ -1519,33 +1604,11 @@ def load_player_map(render_data):
 
     # collide with the scripts
     sprites_collide_scripts = pg.sprite.spritecollide(render_data.player, render_data.scripts_list, True)
-    if len(sprites_collide_scripts)>0:
-        render_data.script1.isTxtShow = False
-        render_data.script2.isTxtShow = False
-        render_data.script3.isTxtShow = False
-        render_data.script4.isTxtShow = False
-        render_data.find_message_size +=1
-
-    for event in render_data.events:
-        if event.type == pg.KEYDOWN:
-            keys = pg.key.get_pressed()
-            if event.key == pg.K_UP:
-                if render_data.find_message_index >0:
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = False
-                    render_data.find_message_index = render_data.find_message_index - 1
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = True
-            elif event.key == pg.K_DOWN:
-                if render_data.find_message_index < render_data.find_message_size - 1:
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = False
-                    render_data.find_message_index = render_data.find_message_index + 1
-                    render_data.find_messages[render_data.find_message_index].isTxtShow = True
-
     for s in sprites_collide_scripts:
         s.iscollided = True
         s.isShow = False
         s.isTxtShow = True
         render_data.collide_scripts = True
-        render_data.find_messages.append(s)
         # script_index +=1
 
     # collide with the blockers
@@ -1560,7 +1623,7 @@ def load_player_map(render_data):
             render_data.player.begin_resting()
         render_data.level_surface = pg.Surface(render_data.map_rect.size)
         render_data.atexts.index = 0
-        if render_data.find_message_size == 4:
+        if render_data.script_index == 4:
             return ("BLACKEND", render_data)
 
     if render_data.player.rect.x % 32 == 0 and render_data.player.rect.y % 32 == 0:
@@ -1576,42 +1639,42 @@ def load_player_map(render_data):
     render_data.level_surface.blit(render_data.map_image, render_data.viewport, render_data.viewport)
 
     # render box
-    # render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
-    # render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
-    # render_data.level_surface.blit(render_data.box, render_data.boxpos)
+    render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
+    render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
+    render_data.level_surface.blit(render_data.box, render_data.boxpos)
 
     # render scripts & message box
     if render_data.script1.isShow:
         render_data.level_surface.blit(render_data.script1.image, render_data.script1.rect)
     if render_data.script1.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['1'])
-        render_data.script1.isTxtShow = True
+        render_data.messagebox.append_messages(render_data.script1.message)
+        render_data.script1.isTxtShow = False
         render_data.script_index += 1
 
     if  render_data.script2.isShow:
         render_data.level_surface.blit(render_data.script2.image, render_data.script2.rect)
     if render_data.script2.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['2'])
-        render_data.script2.isTxtShow = True
+        render_data.messagebox.append_messages(render_data.script2.message)
+        render_data.script2.isTxtShow = False
         render_data.script_index += 1
 
     if render_data.script3.isShow:
         render_data.level_surface.blit(render_data.script3.image, render_data.script3.rect)
     if render_data.script3.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['3'])
-        render_data.script3.isTxtShow = True
+        render_data.messagebox.append_messages(render_data.script3.message)
+        render_data.script3.isTxtShow = False
         render_data.script_index += 1
 
     if  render_data.script4.isShow:
         render_data.level_surface.blit(render_data.script4.image, render_data.script4.rect)
     if render_data.script4.isTxtShow:
-        render_data.messagebox.update(render_data.GFX['4'])
-        render_data.script4.isTxtShow = True
+        render_data.messagebox.append_messages(render_data.script4.message)
+        render_data.script4.isTxtShow = False
         render_data.script_index += 1
 
     # render player
-    # render_data.messagebox.update()
-    # render_data.messagebox.check_for_input()
+    render_data.messagebox.update()
+    render_data.messagebox.check_for_input()
     render_data.level_surface.blit(render_data.player.image, render_data.player.rect)
 
 
@@ -1627,9 +1690,6 @@ def black_end(render_data):
             keys = pg.key.get_pressed()
 
     render_data.btexts.update()
-    if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
-                    render_data.btexts.scripts[render_data.btexts.scripts_index]["type"] == 'button':
-        render_data.btexts.check_for_input()
     render_data.screen.blit(render_data.level_surface, (0, 0))
 
 
