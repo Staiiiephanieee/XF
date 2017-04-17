@@ -77,20 +77,48 @@ class GameRenderData:
                 self.blockers.append(blocker)
 
         #player
+        self.boy1 = self.GFX['boy1']
+        self.girl1 = self.GFX['girl1']
+
+        self.player_index = 0
+
+        self.boy1pos = self.boy1.get_rect()
+        self.boy1pos.x = 100
+        self.boy1pos.y = 125
+        self.girl1pos = self.girl1.get_rect()
+        self.girl1pos.x = 550
+        self.girl1pos.y = 125
+
         self.player = None
-        for object in self.renderer.tmx_data.getObjects():
-            properties = object.__dict__
-            if object.name == 'spoint':
-                posx = object.x + 32
-                posy = object.y
-                # toodo change girl or boys
-                self.player = Player.Player('girl32', 'down', posx, posy)
-                self.player.rect.x = posx
-                self.player.rect.y = posy
-            else:
-                self.player = Player.Player('girl32', 'down')
-                self.player.rect.x = 320
-                self.player.rect.y = 320
+        if self.player_index == 1:
+            for object in self.renderer.tmx_data.getObjects():
+                properties = object.__dict__
+                if object.name == 'spoint':
+                    posx = object.x + 32
+                    posy = object.y
+                    # toodo change girl or boys
+                    self.player = Player.Player('boy32', 'down', posx, posy)
+                    self.player.rect.x = posx
+                    self.player.rect.y = posy
+                else:
+                    self.player = Player.Player('boy32', 'down')
+                    self.player.rect.x = 320
+                    self.player.rect.y = 320
+
+        if self.player == 2:
+            for object in self.renderer.tmx_data.getObjects():
+                properties = object.__dict__
+                if object.name == 'spoint':
+                    posx = object.x + 32
+                    posy = object.y
+                    # toodo change girl or boys
+                    self.player = Player.Player('girl32', 'down', posx, posy)
+                    self.player.rect.x = posx
+                    self.player.rect.y = posy
+                else:
+                    self.player = Player.Player('girl32', 'down')
+                    self.player.rect.x = 320
+                    self.player.rect.y = 320
 
 
         #texts on the first page
@@ -382,8 +410,55 @@ class AnimateText:
     def Toggle(self):
         self.pause = not self.pause
 
-def start_game(render_data):
 
+def choose_player(render_data):
+    pg.init()
+    mouse_x, mouse_y = 0, 0
+
+    while True:
+    # if render_data.player_index == 0:
+        for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    exit()
+
+                elif event.type == pg.MOUSEBUTTONDOWN:
+                    pressed_array = pg.mouse.get_pressed()
+                    for index in range(len(pressed_array)):
+                        if pressed_array[index]:
+                            if index==0 and 100 < mouse_x < 450 and 125 < mouse_y < 475:
+                                print mouse_x, mouse_y
+                                render_data.player_index = 1
+                                print (render_data.player_index)
+                                return ('START', render_data)
+                                break
+                            elif index==2 and 550 < mouse_x < 900 and 125 < mouse_y < 475:
+                                print('Pressed RIGHT Button')
+                                render_data.player_index = 2
+                                print render_data.player_index
+                                return ('START', render_data)
+                                break
+
+                elif event.type == pg.MOUSEMOTION:
+                    pos = pg.mouse.get_pos()
+                    mouse_x = pos[0]
+                    mouse_y = pos[1]
+                    print mouse_x, mouse_y
+
+        render_data.level_surface.blit(render_data.boy1, render_data.boy1pos)
+        render_data.level_surface.blit(render_data.girl1, render_data.girl1pos)
+        render_data.screen.blit(render_data.level_surface, (0, 0))
+        pg.display.update()
+
+    return ('CHOOSEPLAYER', render_data)
+
+
+def start_game(render_data):
+    surface = pg.Surface((1000, 600))
+    surface_rect = surface.get_rect()
+    surface_rect.x = 0
+    surface_rect.y = 0
+
+    pg.init()
     for event in render_data.events:
         if event.type == pg.QUIT:
             done = True
@@ -396,8 +471,6 @@ def start_game(render_data):
 
     render_data.atexts.update()
     render_data.screen.blit(render_data.level_surface, (0, 0))
-
-
 
     return ("START", render_data)
 
@@ -536,11 +609,12 @@ if __name__ == "__main__":
 
     # new a render state machine
     render_state_machine = StateMachine()
+    render_state_machine.add("CHOOSEPLAYER", choose_player)
     render_state_machine.add("START", start_game)
     render_state_machine.add("LOADPLAYERMAP", load_player_map)
     render_state_machine.add("BLACKEND",black_end)
     render_state_machine.add("GAMEOVER", None, end_state=1)
-    render_state_machine.setStart("START")
+    render_state_machine.setStart("CHOOSEPLAYER")
 
 
     while not done:
