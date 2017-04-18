@@ -392,8 +392,7 @@ class GameRenderData:
              "type": "button",
              "offset": 1},
 
-            {
-                "text": "The picture that you give me was just a logo of a holiday village. < > I didn\'t find anything about the picture.",
+            {"text": "The picture that you give me was just a logo of a holiday village. < > I didn\'t find anything about the picture.",
                 "x": 32 * 3,
                 "y": 32 * 26,
                 "type": "button",
@@ -430,12 +429,11 @@ class GameRenderData:
              "type": "button",
              "offset": 1},
 
-            {
-                "text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
+            {"text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
                 "x": 32 * 0,
                 "y": 32 * 26,
                 "type": "button",
-                "offset": 1},
+             "offset": 1},
 
             {"text": "\'Gonzalo orders Alinda, who witnessed the murder, to be locked up in the convent.\'",
              "x": 32 * 0,
@@ -456,10 +454,9 @@ class GameRenderData:
              "x": 32 * 0,
              "y": 32 * 26,
              "type": "text",
-             "offset": 8},
+             "offset":8},
 
-            {
-                "text": "Then this place is the where the devil rests! I could feel it! The wicked gas that I\'m breathing.",
+            {"text": "Then this place is the where the devil rests! I could feel it! The wicked gas that I\'m breathing.",
                 "x": 32 * 0,
                 "y": 32 * 26,
                 "type": "text"},
@@ -474,8 +471,7 @@ class GameRenderData:
              "y": 32 * 26,
              "type": "text"},
 
-            {
-                "text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
+            {"text": "\'Petruccio and Gonzalo invite Sortino to dinner. They kill him and order the palace cooks to prepare the corpse as a stew.\'",
                 "x": 32 * 0,
                 "y": 32 * 26,
                 "type": "text"},
@@ -523,10 +519,12 @@ class GameRenderData:
              "y": 32 * 26,
              "type": "text"},
 
+
             {"text": ">>>PRESS \'9\' to enter the camera<<<",
              "x": 32 * 6,
              "y": 32 * 26,
              "type": "text"},
+
 
             {"text": ">>>PRESS \'9\' to enter the camera<<<",
              "x": 32 * 6,
@@ -534,7 +532,18 @@ class GameRenderData:
              "type": "endbutton"},
         ])
 
+
+
+
+
+
+
+
+
+
+
         self.btexts = AnimateText([
+
 
             {"text": ">>> PRESS \'9\' to enter or quit the camera <<<",
              "x": 32 * 10,
@@ -818,7 +827,7 @@ class GameRenderData:
             {"text": "Why not watch the play?",
              "x": 32 * 14,
              "y": 32 * 26,
-             "y": 32 * 26,
+              "y": 32 * 26,
              "type": "button",
              "offset": 1},
 
@@ -900,7 +909,7 @@ class GameRenderData:
             {"text": "Any benefit for me, Mr.Nobody?",
              "x": 32 * 0,
              "y": 32 * 26,
-             "type": "button",
+              "type": "button",
              "offset": 1},
 
             {"text": "D-CN-6050,report the current situation immediately or you\'ll be shot.This is warning shot.",
@@ -941,7 +950,7 @@ class GameRenderData:
             {"text": "The actors are acting normally about this play.Birds are singing, sky is blue.",
              "x": 32 * 0,
              "y": 32 * 26,
-             "y": 32 * 26,
+              "y": 32 * 26,
              "type": "button",
              "offset": 1},
 
@@ -1293,6 +1302,7 @@ class GameRenderData:
              "type": "button",
              "offset": 1},
 
+
             {"text": "[BREAK SOUND]",
              "x": 32 * 6,
              "y": 32 * 26,
@@ -1309,11 +1319,6 @@ class GameRenderData:
              "type": "text"},
 
             {"text": "************[SIGNAL LOST]************",
-             "x": 32 * 10,
-             "y": 32 * 26,
-             "type": "text"},
-
-            {"text": "GAME OVER",
              "x": 32 * 10,
              "y": 32 * 26,
              "type": "text"},
@@ -1479,18 +1484,18 @@ def choose_player(render_data):
                     for index in range(len(pressed_array)):
                         if pressed_array[index]:
                             if index==0 and 100 < mouse_x < 450 and 125 < mouse_y < 475:
-                                # print mouse_x, mouse_y
+                                print mouse_x, mouse_y
                                 render_data.player_index = 1
-                                # print (render_data.player_index)
+                                print (render_data.player_index)
                                 return ('START', render_data)
 
                             elif index==0 and 550 < mouse_x < 900 and 125 < mouse_y < 475:
                                 render_data.player_index = 2
-                                # print render_data.player_index
+                                print render_data.player_index
                                 render_data.player = Player.Player('girl32', 'down')
                                 render_data.player.rect.x = 320
                                 render_data.player.rect.y = 320
-                                # print 'boy'
+                                print 'boy'
 
                                 return ('START', render_data)
 
@@ -1498,15 +1503,8 @@ def choose_player(render_data):
                     pos = pg.mouse.get_pos()
                     mouse_x = pos[0]
                     mouse_y = pos[1]
-                    # print mouse_x, mouse_y
+                    print mouse_x, mouse_y
 
-        text = render_data.FONT.render('CLICK TO SELECT', 1, (255, 0, 0))
-        textpos = text.get_rect()
-        textpos.x = 450
-        textpos.y = 50
-
-
-        render_data.level_surface.blit(text, textpos)
         render_data.level_surface.blit(render_data.boy1, render_data.boy1pos)
         render_data.level_surface.blit(render_data.girl1, render_data.girl1pos)
         render_data.screen.blit(render_data.level_surface, (0, 0))
@@ -1608,6 +1606,10 @@ def load_player_map(render_data):
     render_data.viewport.clamp_ip(render_data.level_rect)
     render_data.level_surface.blit(render_data.map_image, render_data.viewport, render_data.viewport)
 
+    # render box
+    # render_data.boxpos.x = render_data.viewport.x + (995 - render_data.boxpos.width)
+    # render_data.boxpos.y = render_data.viewport.y + (595 - render_data.boxpos.height)
+    # render_data.level_surface.blit(render_data.box, render_data.boxpos)
 
     # render scripts & message box
     if render_data.script1.isShow:
@@ -1655,10 +1657,13 @@ def black_end(render_data):
             done = True
         elif event.type == pg.KEYUP:
             keys = pg.key.get_pressed()
-            if render_data.btexts.scripts_index <=10:
-                if event.key == pg.K_9:
-                    return  ("LOADPLAYERMAP", render_data)
+            if event.key == pg.K_9:
+                return  ("LOADPLAYERMAP", render_data)
 
+
+    # if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
+    #                 render_data.btexts.scripts[render_data.btexts.scripts_index]["type"] == 'endbutton':
+    #     return ('GAMEOVER',render_data)
 
     render_data.btexts.update()
     if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
@@ -1669,6 +1674,29 @@ def black_end(render_data):
 
 
     return ("BLACKEND", render_data)
+
+# def game_over(render_data):
+#     message_surface = pg.Surface((1000, 600))
+#     message_surface_rect = message_surface.get_rect()
+#     message_surface_rect.x = 0
+#     message_surface_rect.y = 0
+#
+#     for event in render_data.events:
+#         if event.type == pg.QUIT:
+#             done = True
+#
+#     box_rect = message_surface_rect
+#     box_rect.x = 0
+#     box_rect.y = 0
+#
+#     text = render_data.FONT.render('GAME OVER', 1, (255, 0, 0))
+#     textpos = text.get_rect()
+#     textpos.x = 450
+#     textpos.y = 270
+#
+#     message_surface.blit(text, textpos)
+#
+#     render_data.level_surface.blit(message_surface, box_rect)
 
 
 
