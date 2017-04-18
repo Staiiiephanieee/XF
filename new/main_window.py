@@ -39,7 +39,7 @@ class GameRenderData:
         # scripts
         self.scripts_list = pg.sprite.Group()
         self.script1 = Scripts('script1', 32 * 7, 32 * 9.5)
-        self.script2 = Scripts('script2', 32 * 13, 32 * 15.6)
+        self.script2 = Scripts('script2', 32 * 11, 32 * 15.6)
         self.script3 = Scripts('script1', 32 * 2, 32 * 12.5)
         self.script4 = Scripts('script2', 32 * 3.5, 32 * 6)
 
@@ -241,7 +241,7 @@ class GameRenderData:
              "y": 32 * 24,
              "type": "text"},
 
-            {"text": "[Visual signal stable]",
+            {"text": "[Visual signal stable]  PRESS \'9\' to enter the camera",
              "x": 32 * 8,
              "y": 32 * 24,
              "type": "text"},
@@ -249,8 +249,7 @@ class GameRenderData:
             {"text": "PRESS \'9\' to enter the camera",
              "x": 32 * 0,
              "y": 32 * 24,
-             "type": "endbutton",
-             "offset": 1},
+             "type": "endbutton"},
         ])
 
 
@@ -1361,7 +1360,7 @@ class AnimateText:
 
     def update(self):
         time = pg.time.get_ticks()
-        if (time - self.current_time) > 1000:
+        if (time - self.current_time) > 100:
             self.append_script()
             self.current_time = time
         if not self.isvalid:
@@ -1625,6 +1624,13 @@ def black_end(render_data):
             done = True
         elif event.type == pg.KEYUP:
             keys = pg.key.get_pressed()
+            # if event.key == pg.K_9:
+            #     return  ("GAMEOVER", render_data)
+
+
+    # if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
+    #                 render_data.btexts.scripts[render_data.btexts.scripts_index]["type"] == 'endbutton':
+    #     return ('GAMEOVER',render_data)
 
     render_data.btexts.update()
     if render_data.btexts.scripts_index < len(render_data.btexts.scripts) and \
@@ -1635,6 +1641,31 @@ def black_end(render_data):
 
 
     return ("BLACKEND", render_data)
+
+# def game_over(render_data):
+#     message_surface = pg.Surface((1000, 600))
+#     message_surface_rect = message_surface.get_rect()
+#     message_surface_rect.x = 0
+#     message_surface_rect.y = 0
+#
+#     for event in render_data.events:
+#         if event.type == pg.QUIT:
+#             done = True
+#
+#     box_rect = message_surface_rect
+#     box_rect.x = 0
+#     box_rect.y = 0
+#
+#     text = render_data.FONT.render('GAME OVER', 1, (255, 0, 0))
+#     textpos = text.get_rect()
+#     textpos.x = 450
+#     textpos.y = 270
+#
+#     message_surface.blit(text, textpos)
+#
+#     render_data.level_surface.blit(message_surface, box_rect)
+
+
 
 
 if __name__ == "__main__":
